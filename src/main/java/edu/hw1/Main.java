@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -14,48 +15,8 @@ public final class Main {
     }
 
     public static void main(String[] args) {
-//        logger();
-//        System.out.println(minutesToSeconds("13:42"));
-//        System.out.println(countDigits(-1));
-//        System.out.println(isNestable(new int[] {9, 9, 8}, new int[] {8, 9}));
-//        System.out.println(fixString("hTsii  s aimex dpus rtni.g"));
-//        System.out.println(isPalindromeDescendant(11));
-//        System.out.println(isPalindromeDescendant(123657432));
-//        System.out.println(isPalindromeDescendant(13001120));
-//        System.out.println(isPalindromeDescendant(23336014));
-//        System.out.println(countK(new int[]{3,5,2,4},0));
-//        System.out.println(countK(new int[]{6,6,2,1},0));
-//        System.out.println(rotateRight(8, 1));
-        System.out.println(knightBoardCapture(new int[][]{
-            {0, 0, 0, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 1, 0, 1, 0},
-            {0, 1, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0}}
-        ));
-        System.out.println(knightBoardCapture(new int[][]{
-            {1, 0, 1, 0, 1, 0, 1, 0},
-            {0, 1, 0, 1, 0, 1, 0, 1},
-            {0, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 1, 0, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 0, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 1, 0, 1, 0, 1}
-        }));
-        System.out.println(knightBoardCapture(new int[][]{
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 1, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0}
-        }));
+        System.out.println(countK(1234, 0));
+
     }
 
     public static void logger() {
@@ -131,24 +92,25 @@ public final class Main {
     }
 
     //kall
-    public static int countK(int[] n, int k) {
-        int q = 0;
-        for (int i = 0, j = 1000; i < n.length; i++, j /= 10) {
-            q += n[i] * j;
-        }
-        System.out.println(q);
-        if (q == 6174) {
+    public static int [] array= new int [4];
+    public static int countK(int n, int k) {
+        if (n == 6174) {
             return k;
         }
-        Arrays.sort(n);
-        int[] rev = new int[4];
-        for (int i = 0, j = 3; i < rev.length; i++, j--) {
-            rev[i] = n[j];
+        for (int i = 0; i < 4;i++) {
+            array[i]=n % 10;
+            n /= 10;
         }
-        for (int i = 0; i < n.length; i++) {
-            rev[i] = rev[i] - n[i];
+        Arrays.sort(array);
+        int num=1000;
+        int q=0;
+        for (int i = 0, j = 3; i < array.length; i++, j--) {
+            n+=array[i]*num;
+            q+=array[j]*num;
+            num/=10;
+
         }
-        return countK(rev, k + 1);
+        return countK(q-n,k+1);
     }
 
     //
@@ -205,7 +167,7 @@ public final class Main {
         return true;
     }
 
-    public static boolean moves(int i, int j, int[][] board) {
+    private static boolean moves(int i, int j, int[][] board) {
         int[] moveI = {-1, 1, 2, 2, 1, -1, -2, -2};
         int[] moveJ = {-2, -2, -1, 1, 2, 2, 1, -1};
         boolean bool = false;

@@ -7,7 +7,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class Main {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private Main() {
+
     }
 
     public static void main(String[] args) {
@@ -15,24 +18,29 @@ public final class Main {
     }
 
     public static void logger() {
-        Logger LOGGER = LogManager.getLogger();
         LOGGER.info("Привет мир!");
     }
+
+    private static final int SEC_MAX = 59;
+    private static final int TIME_IN_MIN = 60;
 
     public static int minutesToSeconds(String str) {
         int min = Integer.parseInt(str.split(":")[0]);
         int sec = Integer.parseInt(str.split(":")[1]);
-        if (sec > 59 || sec < 0) {
+        if (sec > SEC_MAX || sec < 0) {
             return -1;
         } else {
-            return min * 60 + sec;
+            return min * TIME_IN_MIN + sec;
         }
     }
 
-    public static int countDigits(int n) {
+    private final static int BASE = 10;
+
+    public static int countDigits(int a) {
+        int n = a;
         int res = 1;
-        while (n / 10 > 0) {
-            n /= 10;
+        while (n / BASE > 0) {
+            n /= BASE;
             res++;
         }
         return res;
@@ -61,7 +69,8 @@ public final class Main {
         return sb.toString();
     }
 
-    public static boolean isPalindromeDescendant(int n) {
+    public static boolean isPalindromeDescendant(int a) {
+        int n = a;
         String str = String.valueOf(n);
         StringBuilder sb = new StringBuilder(str);
         while (str.length() > 1) {
@@ -69,14 +78,13 @@ public final class Main {
                 return true;
             } else {
                 sb = new StringBuilder();
-                int[] array = new int[str.length()];
-                for (int i = array.length - 1; i >= 0; i--) {
-                    array[i] = n % 10;
-                    n /= 10;
+                int[] arr = new int[str.length()];
+                for (int i = arr.length - 1; i >= 0; i--) {
+                    arr[i] = n % BASE;
+                    n /= BASE;
                 }
-                int[] arr = new int[str.length() / 2 + 1];
-                for (int i = 0, j = 0; i < array.length - 1; i += 2, j++) {
-                    arr[j] = array[i] + array[i + 1];
+                for (int i = 0, j = 0; i < arr.length - 1; i += 2, j++) {
+                    arr[j] = arr[i] + arr[i + 1];
                     sb.append(arr[j]);
                 }
             }
@@ -86,30 +94,35 @@ public final class Main {
         return false;
     }
 
-    public static int[] array = new int[4];
+    private static final int ARRAY_LENGTH = 4;
+    private static final int KAPREKAR = 6174;
+    private static int[] array = new int[ARRAY_LENGTH];
+    private static final int THOUSAND = 1000;
 
-    public static int countK(int n, int k) {
-        if (n == 6174) {
+    public static int countK(int a, int k) {
+        int n = a;
+        if (n == KAPREKAR) {
             return k;
         }
-        for (int i = 0; i < 4; i++) {
-            array[i] = n % 10;
-            n /= 10;
+        for (int i = 0; i < array.length; i++) {
+            array[i] = n % BASE;
+            n /= BASE;
         }
         Arrays.sort(array);
-        int num = 1000;
+        int num = THOUSAND;
         int q = 0;
-        for (int i = 0, j = 3; i < array.length; i++, j--) {
+        for (int i = 0, j = array.length - 1; i < array.length; i++, j--) {
             n += array[i] * num;
             q += array[j] * num;
-            num /= 10;
+            num /= BASE;
 
         }
         return countK(q - n, k + 1);
     }
 
-    public static int rotateLeft(int n, int k) {
-        int bin = toBinnary(n);
+    public static int rotateLeft(int n, int b) {
+        int k = b;
+        int bin = toBinary(n);
         List<String> list = new ArrayList<>(List.of(String.valueOf(bin).split("")));
         while (k != 0) {
             list.add(list.get(0));
@@ -119,8 +132,9 @@ public final class Main {
         return toDec(list);
     }
 
-    public static int rotateRight(int n, int k) {
-        int bin = toBinnary(n);
+    public static int rotateRight(int n, int b) {
+        int k = b;
+        int bin = toBinary(n);
         List<String> list = new ArrayList<>(List.of(String.valueOf(bin).split("")));
         while (k != 0) {
             list.add(0, list.get(list.size() - 1));
@@ -130,12 +144,13 @@ public final class Main {
         return toDec(list);
     }
 
-    private static int toBinnary(int n) {
+    private static int toBinary(int a) {
+        int n = a;
         int res = 0;
         int k = 1;
         while (n > 0) {
             res += (n % 2) * k;
-            k *= 10;
+            k *= BASE;
             n /= 2;
         }
         return res;
@@ -162,13 +177,14 @@ public final class Main {
         return true;
     }
 
+    private static final int[] MOVE_I = {-1, 1, 2, 2, 1, -1, -2, -2};
+    private static final int[] MOVE_J = {-2, -2, -1, 1, 2, 2, 1, -1};
+
     private static boolean moves(int i, int j, int[][] board) {
-        int[] moveI = {-1, 1, 2, 2, 1, -1, -2, -2};
-        int[] moveJ = {-2, -2, -1, 1, 2, 2, 1, -1};
         boolean bool;
-        for (int k = 0; k < moveI.length; k++) {
+        for (int k = 0; k < MOVE_I.length; k++) {
             try {
-                bool = board[i + moveI[k]][j + moveJ[k]] == 1;
+                bool = board[i + MOVE_I[k]][j + MOVE_J[k]] == 1;
             } catch (Exception e) {
                 continue;
             }

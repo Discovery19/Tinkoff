@@ -86,25 +86,26 @@ public final class Main {
         return false;
     }
 
-    public static int [] array= new int [4];
+    public static int[] array = new int[4];
+
     public static int countK(int n, int k) {
         if (n == 6174) {
             return k;
         }
-        for (int i = 0; i < 4;i++) {
-            array[i]=n % 10;
+        for (int i = 0; i < 4; i++) {
+            array[i] = n % 10;
             n /= 10;
         }
         Arrays.sort(array);
-        int num=1000;
-        int q=0;
+        int num = 1000;
+        int q = 0;
         for (int i = 0, j = 3; i < array.length; i++, j--) {
-            n+=array[i]*num;
-            q+=array[j]*num;
-            num/=10;
+            n += array[i] * num;
+            q += array[j] * num;
+            num /= 10;
 
         }
-        return countK(q-n,k+1);
+        return countK(q - n, k + 1);
     }
 
     public static int rotateLeft(int n, int k) {
@@ -128,6 +129,7 @@ public final class Main {
         }
         return toDec(list);
     }
+
     private static int toBinnary(int n) {
         int res = 0;
         int k = 1;
@@ -138,15 +140,15 @@ public final class Main {
         }
         return res;
     }
+
     private static int toDec(List<String> list) {
-        int res=0;
-        for (int i= list.size()-1, k=0;i>=0;i--,k++){
-            res+= (int) (Integer.parseInt(list.get(i))*Math.pow(2,k));
+        int res = 0;
+        for (int i = list.size() - 1, k = 0; i >= 0; i--, k++) {
+            res += (int) (Integer.parseInt(list.get(i)) * Math.pow(2, k));
         }
         return res;
     }
 
-    //
     public static boolean knightBoardCapture(int[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {

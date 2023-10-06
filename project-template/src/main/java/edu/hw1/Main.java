@@ -4,58 +4,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public final class Main {
     private Main() {
     }
 
     public static void main(String[] args) {
-//        logger();
-//        System.out.println(minutesToSeconds("13:42"));
-//        System.out.println(countDigits(-1));
-//        System.out.println(isNestable(new int[] {9, 9, 8}, new int[] {8, 9}));
-//        System.out.println(fixString("hTsii  s aimex dpus rtni.g"));
-//        System.out.println(isPalindromeDescendant(11));
-//        System.out.println(isPalindromeDescendant(123657432));
-//        System.out.println(isPalindromeDescendant(13001120));
-//        System.out.println(isPalindromeDescendant(23336014));
-//        System.out.println(countK(new int[]{3,5,2,4},0));
-//        System.out.println(countK(new int[]{6,6,2,1},0));
-//        System.out.println(rotateRight(8, 1));
-        System.out.println(knightBoardCapture(new int[][]{
-            {0, 0, 0, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 1, 0, 1, 0},
-            {0, 1, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0}}
-        ));
-        System.out.println(knightBoardCapture(new int[][]{
-            {1, 0, 1, 0, 1, 0, 1, 0},
-            {0, 1, 0, 1, 0, 1, 0, 1},
-            {0, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 1, 0, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 0, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 1, 0, 1, 0, 1}
-        }));
-        System.out.println(knightBoardCapture(new int[][]{
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 1, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0}
-        }));
+
     }
 
     public static void logger() {

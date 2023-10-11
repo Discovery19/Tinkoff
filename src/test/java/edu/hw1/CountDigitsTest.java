@@ -6,13 +6,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class CountDigitsTest {
     @Test
-    @DisplayName("1. Количество цифр") void countDigitsShouldConvertFour() {
+    @DisplayName("Стандартный просчет 4-ех значного числа") void countDigitsShouldConvertFour() {
         int res = Task2.countDigits(4666);
         assertThat(res).isEqualTo(4);
     }
 
     @Test
-    @DisplayName("2. Количество цифр") void countDigitsShouldConvertOne() {
+    @DisplayName("Проверка работы с нулем") void countDigitsShouldConvertOne() {
         int res = Task2.countDigits(0);
         assertThat(res).isEqualTo(1);
     }

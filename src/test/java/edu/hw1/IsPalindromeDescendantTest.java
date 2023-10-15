@@ -8,14 +8,22 @@ class IsPalindromeDescendantTest {
     @Test
     @DisplayName("Палиндром, который не сходится")
     void isPalindromeDescendant_False() {
-        boolean res = Task5.isPalindromeDescendant(123456789);
+        //arrange
+        int palindrome = 123456789;
+        //act
+        boolean res = Task5.isPalindromeDescendant(palindrome);
+        //assert
         assertThat(res).isFalse();
     }
 
     @Test
     @DisplayName("Сходящийся палиндром")
     void isPalindromeDescendant_True() {
-        boolean res = Task5.isPalindromeDescendant(23336014);
+        //arrange
+        int palindrome = 23336014;
+        //act
+        boolean res = Task5.isPalindromeDescendant(palindrome);
+        //assert
         assertThat(res).isTrue();
     }
 }

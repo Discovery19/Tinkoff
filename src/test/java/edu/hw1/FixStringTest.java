@@ -8,14 +8,22 @@ class FixStringTest {
     @Test
     @DisplayName("Проверка четной строки")
     void fixString_EvenNumber() {
-        String res = Task4.fixString("hTsii  s aimex dpus rtni.g");
+        //arrange
+        String stringEven = "hTsii  s aimex dpus rtni.g";
+        //act
+        String res = Task4.fixString(stringEven);
+        //assert
         assertThat(res).isEqualTo("This is a mixed up string.");
     }
 
     @Test
     @DisplayName("Проверка нечетной строки")
     void fixString_OddNumber() {
-        String res = Task4.fixString("badce");
+        //arrange
+        String stringOdd = "badce";
+        //act
+        String res = Task4.fixString(stringOdd);
+        //assert
         assertThat(res).isEqualTo("abcde");
     }
 }

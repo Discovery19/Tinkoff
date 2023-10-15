@@ -13,7 +13,7 @@ public class Main {
         ConnectionManager fc = new FaultyConnectionManager();
         PopularCommandExecutor cmd = new PopularCommandExecutor(dc, MAXATTEMPTS);
         cmd.updatePackages();
-        PopularCommandExecutor pce = new PopularCommandExecutor(fc, MAXATTEMPTS);
-        pce.updatePackages();
+//        PopularCommandExecutor pce = new PopularCommandExecutor(fc, MAXATTEMPTS);
+//        pce.updatePackages();
     }
 }

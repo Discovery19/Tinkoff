@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class RectangleSquareTest {
+class Task2Test {
     static Arguments[] rectangles() {
         return new Arguments[] {
             Arguments.of(new Rectangle()),

@@ -8,7 +8,8 @@ class KnightBoardCaptureTest {
     @Test
     @DisplayName("Стандартный тест на коней, не могут побить друг друга")
     void knightBoardCapture_True() {
-        boolean res = Task8.knightBoardCapture(new int[][] {
+        //arrange
+        int[][] board = new int[][] {
             {0, 0, 0, 1, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 1, 0, 0, 0, 1, 0, 0},
@@ -16,14 +17,18 @@ class KnightBoardCaptureTest {
             {0, 1, 0, 0, 0, 1, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 1, 0, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0}});
+            {0, 0, 0, 0, 1, 0, 0, 0}};
+        //act
+        boolean res = Task8.knightBoardCapture(board);
+        //assert
         assertThat(res).isTrue();
     }
 
     @Test
     @DisplayName("Стандартный тест на коней, могут побить друг друга")
     void knightBoardCaptureFalse() {
-        boolean res = Task8.knightBoardCapture(new int[][] {
+        //arrange
+        int[][] board = new int[][] {
             {1, 0, 1, 0, 1, 0, 1, 0},
             {0, 1, 0, 1, 0, 1, 0, 1},
             {0, 0, 0, 0, 1, 0, 1, 0},
@@ -31,14 +36,18 @@ class KnightBoardCaptureTest {
             {1, 0, 0, 0, 1, 0, 1, 0},
             {0, 0, 0, 0, 0, 1, 0, 1},
             {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 1, 0, 1, 0, 1}});
+            {0, 0, 0, 1, 0, 1, 0, 1}};
+        //act
+        boolean res = Task8.knightBoardCapture(board);
+        //assert
         assertThat(res).isFalse();
     }
 
     @Test
     @DisplayName("Ни одного коня на доске")
     void knightBoardCapture_ZeroBoard_True() {
-        boolean res = Task8.knightBoardCapture(new int[][] {
+        //arrange
+        int[][] board = new int[][] {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
@@ -46,14 +55,18 @@ class KnightBoardCaptureTest {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0}});
+            {0, 0, 0, 0, 0, 0, 0, 0}};
+        //act
+        boolean res = Task8.knightBoardCapture(board);
+        //assert
         assertThat(res).isTrue();
     }
 
     @Test
     @DisplayName("Вся доска в конях")
     void knightBoardCapture_FullBoard_False() {
-        boolean res = Task8.knightBoardCapture(new int[][] {
+        //arrange
+        int[][] board = new int[][] {
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
@@ -61,14 +74,18 @@ class KnightBoardCaptureTest {
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1}});
+            {1, 1, 1, 1, 1, 1, 1, 1}};
+        //act
+        boolean res = Task8.knightBoardCapture(board);
+        //assert
         assertThat(res).isFalse();
     }
 
     @Test
     @DisplayName("Очевидный тест на коней, могут побить друг друга")
     void knightBoardCapture_ClearCheck_False() {
-        boolean res = Task8.knightBoardCapture(new int[][] {
+        //arrange
+        int[][] board = new int[][] {
             {0, 1, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 1, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
@@ -76,7 +93,10 @@ class KnightBoardCaptureTest {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0}});
+            {0, 0, 0, 0, 0, 0, 0, 0}};
+        //act
+        boolean res = Task8.knightBoardCapture(board);
+        //assert
         assertThat(res).isFalse();
     }
 }

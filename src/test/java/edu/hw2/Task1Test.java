@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class ExprTest {
+class Task1Test {
     static Arguments[] constants() {
         return new Arguments[] {
             Arguments.of(new Expr.Constant(10), new Expr.Negate(new Expr.Constant(40))),

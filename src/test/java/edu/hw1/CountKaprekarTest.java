@@ -10,8 +10,10 @@ class CountKaprekarTest {
     void countK_Three() {
         //arrange
         int fourRangeNum = 1234;
+
         //act
         int res = Task6.countK(fourRangeNum, 0);
+
         //assert
         assertThat(res).isEqualTo(3);
     }
@@ -21,8 +23,10 @@ class CountKaprekarTest {
     void countK_Five() {
         //arrange
         int fourRangeNum = 6621;
+
         //act
         int res = Task6.countK(fourRangeNum, 0);
+
         //assert
         assertThat(res).isEqualTo(5);
     }
@@ -32,8 +36,10 @@ class CountKaprekarTest {
     void countK_Thousand_MinusOne() {
         //arrange
         int fourRangeNum = 1000;
+
         //act
         int res = Task6.countK(fourRangeNum, 0);
+
         //assert
         assertThat(res).isEqualTo(-1);
     }
@@ -43,8 +49,10 @@ class CountKaprekarTest {
     void countK_OneNumber_MinusOne() {
         //arrange
         int fourOne = 1111;
+
         //act
         int res = Task6.countK(fourOne, 0);
+
         //assert
         assertThat(res).isEqualTo(-1);
     }
@@ -54,8 +62,10 @@ class CountKaprekarTest {
     void countK_TenThousand_MinusOne() {
         //arrange
         int fiveRangeNum = 10000;
+
         //act
         int res = Task6.countK(fiveRangeNum, 0);
+
         //assert
         assertThat(res).isEqualTo(-1);
     }

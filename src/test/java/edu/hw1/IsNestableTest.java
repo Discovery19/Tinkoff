@@ -11,8 +11,10 @@ class IsNestableTest {
         //arrange
         int[] first_array = new int[] {9, 9, 8};
         int[] second_array = new int[] {8, 9};
+
         //act
         boolean res = Task3.isNestable(first_array, second_array);
+
         //assert
         assertThat(res).isFalse();
     }
@@ -23,8 +25,10 @@ class IsNestableTest {
         //arrange
         int[] first_array = new int[] {1, 2, 3, 4};
         int[] second_array = new int[] {0, 6};
+
         //act
         boolean res = Task3.isNestable(first_array, second_array);
+
         //assert
         assertThat(res).isTrue();
     }
@@ -35,8 +39,10 @@ class IsNestableTest {
         //arrange
         int[] first_array = new int[] {};
         int[] second_array = new int[] {0, 6};
+
         //act
         boolean res = Task3.isNestable(first_array, second_array);
+
         //assert
         assertThat(res).isFalse();
     }
@@ -47,8 +53,10 @@ class IsNestableTest {
         //arrange
         int[] first_array = new int[] {0, 6};
         int[] second_array = new int[] {};
+
         //act
         boolean res = Task3.isNestable(first_array, second_array);
+
         //assert
         assertThat(res).isFalse();
     }
@@ -59,8 +67,10 @@ class IsNestableTest {
         //arrange
         int[] first_array = new int[] {};
         int[] second_array = new int[] {};
+
         //act
         boolean res = Task3.isNestable(first_array, second_array);
+
         //assert
         assertThat(res).isFalse();
     }

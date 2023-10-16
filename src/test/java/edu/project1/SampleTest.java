@@ -1,23 +1,58 @@
 package edu.project1;
 
-import edu.hw1.EvenArrayUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import java.io.IOException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class SampleTest {
+class SampleTest {
     @Test
-    @DisplayName("Фильтрация четных чисел")
-    void filterEvenNumbers() {
-        // given
-        int[] numbers = new int[] {1, 2, 3, 4, 5};
-
-        // when
-        int[] evenNumbers = EvenArrayUtils.filter(numbers);
-
-        // then
-        assertThat(evenNumbers)
-            .containsExactly(2, 4)
-            .hasSize(2);
+    @DisplayName("Игра виселица со словом - hello (победа)")
+    void gameStandardFile() throws IOException {
+        Game game = new Game();
+        GameLogic gameLogic =
+            game.startForTest(new DictionaryFromFile().setDictionary("src/test/java/edu/project1/resourses/dictionarySandart"));
+        gameLogic.getGuess("h");
+        assertThat(gameLogic.getGameStatus()).isTrue();
+        gameLogic.getGuess("e");
+        gameLogic.getGuess("l");
+        gameLogic.getGuess("o");
+        assertThat(gameLogic.getGameStatus()).isFalse();
+    }
+    @Test
+    @DisplayName("Игра виселица со словом - hello (поражение)")
+    void gameStandardFileFalse() throws IOException {
+        Game game = new Game();
+        GameLogic gameLogic =
+            game.startForTest(new DictionaryFromFile().setDictionary("src/test/java/edu/project1/resourses/dictionarySandart"));
+        gameLogic.getGuess("q");
+        assertThat(gameLogic.getGameStatus()).isTrue();
+        gameLogic.getGuess("e");
+        gameLogic.getGuess("w");
+        gameLogic.getGuess("r");
+        gameLogic.getGuess("a");
+        gameLogic.getGuess("x");
+        assertThat(gameLogic.getGameStatus()).isFalse();
+    }
+    @Test
+    @DisplayName("Игра виселица с пустым словарем")
+    void gameEmptyFile() throws IOException {
+        Game game = new Game();
+        GameLogic gameLogic =
+            game.startForTest(new DictionaryFromFile().setDictionary("src/test/java/edu/project1/resourses/dictionaryEmpty"));
+        assertThat(gameLogic.getGameStatus()).isFalse();
+    }
+    @Test
+    @DisplayName("Игра виселица со словом - hello (победа)")
+    void gameStandardConsole() throws IOException {
+        Game game = new Game();
+        GameLogic gameLogic =
+            game.startForTest(new DictionaryStandart().setDictionary("hello"));
+        gameLogic.getGuess("h");
+        assertThat(gameLogic.getGameStatus()).isTrue();
+        gameLogic.getGuess("e");
+        gameLogic.getGuess("l");
+        gameLogic.getGuess("o");
+        assertThat(gameLogic.getGameStatus()).isFalse();
     }
 }

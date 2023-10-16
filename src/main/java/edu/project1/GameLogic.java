@@ -1,78 +1,101 @@
 package edu.project1;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GameLogic {
     private static final Logger LOGGER = LogManager.getLogger();
     private static int attempts = 0;
     private final int maxAttempts = 5;
-    private String[] word;
-    private String[] userAnswer;
+    private static int wordLength;
+    private static String[] word;
+    private static String[] userAnswer;
+    private static boolean gameStatus = true;
 
-    public int getAttempts() {
-        return attempts;
+    public boolean getGameStatus() {
+        return gameStatus;
     }
 
-    public int getMaxAttempts() {
-        return maxAttempts;
+    public static void gameStart(String str) {
+        if (str.isEmpty()) {
+            error();
+            return;
+        }
+        wordLength = str.length();
+        LOGGER.warn(str);
+        word = str.split("");
+        userAnswer = "*".repeat(str.length()).split("");
     }
 
-    void gameStart() {
-        String word = new Dictionary().getRandom();
-        LOGGER.warn(word);
-        this.word = word.split("");
-        this.userAnswer = "*".repeat(word.length()).split("");
-    }
-
-    void getGuess(String s) {
+    public void getGuess(String s) {
+        LOGGER.info("Guess a letter:");
         if (s.equals("*")) {
             defeat();
         } else {
-            List<Integer> replaceList = new ArrayList<>();
-            for (int i = 0; i < word.length; i++) {
-                if (s.equals(word[i])) {
-                    replaceList.add(i);
-                }
-            }
-            if (!replaceList.isEmpty()) {
-                good(replaceList);
-            } else {
-                bad();
-            }
+            wordCheck(s);
+        }
+        if (attempts == maxAttempts) {
+            defeat();
+        }
+        if (wordLength <= 0) {
+            win();
+        }
 
+    }
+
+    private void wordCheck(String s) {
+        List<Integer> replaceList = new ArrayList<>();
+        for (int i = 0; i < word.length; i++) {
+            if (s.equals(word[i])) {
+                replaceList.add(i);
+            }
+        }
+        if (!replaceList.isEmpty()) {
+            goodAnswer(replaceList);
+        } else {
+            badAnswer();
         }
     }
 
-    void good(List<Integer> list) {
+    private static void goodAnswer(List<Integer> list) {
         for (int i : list) {
-            this.userAnswer[i] = word[i];
-            this.word[i] = "*";
+            userAnswer[i] = word[i];
+            word[i] = "*";
         }
+        wordLength -= list.size();
         LOGGER.info("Hit!");
         LOGGER.info(toStr(userAnswer));
 
     }
 
-    void bad() {
+    private static void badAnswer() {
         attempts++;
         LOGGER.info("Missed, mistake " + attempts + " out of 5.");
+        LOGGER.info(toStr(userAnswer));
     }
 
-    public String toStr(String[] array) {
+    private static String toStr(String[] array) {
         StringBuilder sb = new StringBuilder();
         for (String i : array) {
             sb.append(i);
         }
         return sb.toString();
     }
-    void defeat(){
+
+    private static void defeat() {
+        gameStatus = false;
         LOGGER.error("You LOST!");
-        LOGGER.info("Слово: "+toStr(word));
     }
-    void win(){
+
+    private static void win() {
+        gameStatus = false;
         LOGGER.error("You WIN!");
+    }
+
+    private static void error() {
+        gameStatus = false;
+        LOGGER.error("Неправильно задано слово");
     }
 }

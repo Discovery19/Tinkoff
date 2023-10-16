@@ -1,11 +1,10 @@
 package edu.project1;
 
-import java.util.Random;
+import java.io.IOException;
 
-public class Dictionary {
-    private static final String[] dictionary={"hello", "world"};
-    public String getRandom() {
-        int rnd = new Random().nextInt(dictionary.length);
-        return dictionary[rnd];
-    }
+public interface Dictionary {
+    String getRandomWord();
+    Dictionary setDictionary(String dict) throws IOException;
 }
+
+

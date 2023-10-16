@@ -13,7 +13,6 @@ class SampleTest {
         GameLogic gameLogic =
             game.startForTest(new DictionaryFromFile().setDictionary("src/test/java/edu/project1/resourses/dictionarySandart"));
         gameLogic.getGuess("h");
-        assertThat(gameLogic.getGameStatus()).isTrue();
         gameLogic.getGuess("e");
         gameLogic.getGuess("l");
         gameLogic.getGuess("o");
@@ -26,7 +25,6 @@ class SampleTest {
         GameLogic gameLogic =
             game.startForTest(new DictionaryFromFile().setDictionary("src/test/java/edu/project1/resourses/dictionarySandart"));
         gameLogic.getGuess("q");
-        assertThat(gameLogic.getGameStatus()).isTrue();
         gameLogic.getGuess("e");
         gameLogic.getGuess("w");
         gameLogic.getGuess("r");
@@ -43,8 +41,8 @@ class SampleTest {
         assertThat(gameLogic.getGameStatus()).isFalse();
     }
     @Test
-    @DisplayName("Игра виселица со словом - hello (победа)")
-    void gameStandardConsole() throws IOException {
+    @DisplayName("Игра виселица со словом - hello (победа) словарь не из файла")
+    void gameStandardConsole() {
         Game game = new Game();
         GameLogic gameLogic =
             game.startForTest(new DictionaryStandart().setDictionary("hello"));

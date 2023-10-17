@@ -31,7 +31,6 @@ public class GameLogic {
 
     public void getGuess(String str) {
         String s = str.toLowerCase();
-        LOGGER.info("Guess a letter:");
         if (s.equals("*")) {
             defeat();
         } else {

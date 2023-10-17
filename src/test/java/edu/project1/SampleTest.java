@@ -8,7 +8,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class SampleTest {
     @Test
     @DisplayName("Игра виселица со словом - hello (победа)")
-    void gameStandardFile() throws IOException {
+    void gameStandardFile() throws Exception {
         //arrange/act
         Game game = new Game();
         GameLogic gameLogic =

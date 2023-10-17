@@ -15,6 +15,7 @@ class SampleTest {
             game.startForTest(new DictionaryFromFile().setDictionary(
                 "src/test/java/edu/project1/resourses/dictionarySandart"));
         gameLogic.getGuess("h");
+        assertThat(gameLogic.getGameStatus()).isTrue();
         gameLogic.getGuess("e");
         gameLogic.getGuess("l");
         gameLogic.getGuess("o");
@@ -32,6 +33,7 @@ class SampleTest {
             game.startForTest(new DictionaryFromFile().setDictionary(
                 "src/test/java/edu/project1/resourses/dictionarySandart"));
         gameLogic.getGuess("q");
+        assertThat(gameLogic.getGameStatus()).isTrue();
         gameLogic.getGuess("e");
         gameLogic.getGuess("w");
         gameLogic.getGuess("r");

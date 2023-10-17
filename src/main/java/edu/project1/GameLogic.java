@@ -7,19 +7,20 @@ import org.apache.logging.log4j.Logger;
 
 public class GameLogic {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static int attempts = 0;
+    private int attempts = 0;
     private final int maxAttempts = 5;
-    private static int wordLength;
-    private static String[] word;
-    private static String[] userAnswer;
-    private static boolean gameStatus = true;
+    private int wordLength;
+    private String[] word;
+    private String[] userAnswer;
+    private boolean gameStatus = true;
+    private static final int MIN_LEN = 3;
 
     public boolean getGameStatus() {
         return gameStatus;
     }
 
     public void gameStart(String str) {
-        if (str.isEmpty()) {
+        if (str.length() < MIN_LEN) {
             error();
             return;
         }
@@ -59,7 +60,7 @@ public class GameLogic {
         }
     }
 
-    private static void goodAnswer(List<Integer> list) {
+    private void goodAnswer(List<Integer> list) {
         for (int i : list) {
             userAnswer[i] = word[i];
             word[i] = "*";
@@ -69,13 +70,13 @@ public class GameLogic {
         LOGGER.info(toStr(userAnswer));
     }
 
-    private static void badAnswer() {
+    private void badAnswer() {
         attempts++;
         LOGGER.info("Missed, mistake " + attempts + " out of 5.");
         LOGGER.info(toStr(userAnswer));
     }
 
-    private static String toStr(String[] array) {
+    private String toStr(String[] array) {
         StringBuilder sb = new StringBuilder();
         for (String i : array) {
             sb.append(i);
@@ -83,17 +84,17 @@ public class GameLogic {
         return sb.toString();
     }
 
-    private static void defeat() {
+    private void defeat() {
         gameStatus = false;
         LOGGER.error("You LOST!");
     }
 
-    private static void win() {
+    private void win() {
         gameStatus = false;
         LOGGER.error("You WIN!");
     }
 
-    private static void error() {
+    private void error() {
         gameStatus = false;
         LOGGER.error("Неправильно задано слово");
     }

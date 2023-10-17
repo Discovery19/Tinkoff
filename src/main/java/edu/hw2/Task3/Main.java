@@ -10,10 +10,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         ConnectionManager dc = new DefaultConnectionManager();
-        ConnectionManager fc = new FaultyConnectionManager();
         PopularCommandExecutor cmd = new PopularCommandExecutor(dc, MAXATTEMPTS);
         cmd.updatePackages();
-//        PopularCommandExecutor pce = new PopularCommandExecutor(fc, MAXATTEMPTS);
-//        pce.updatePackages();
     }
 }

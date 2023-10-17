@@ -6,7 +6,7 @@ public class Game {
     public void start(Dictionary dictionary) {
         Scanner scanner = new Scanner(System.in);
         GameLogic gl = new GameLogic();
-        GameLogic.gameStart(dictionary.getRandomWord());
+        gl.gameStart(dictionary.getRandomWord());
         while (gl.getGameStatus()) {
             gl.getGuess(scanner.next());
         }

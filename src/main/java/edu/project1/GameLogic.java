@@ -18,18 +18,19 @@ public class GameLogic {
         return gameStatus;
     }
 
-    public static void gameStart(String str) {
+    public void gameStart(String str) {
         if (str.isEmpty()) {
             error();
             return;
         }
         wordLength = str.length();
         LOGGER.warn(str);
-        word = str.split("");
+        word = str.toLowerCase().split("");
         userAnswer = "*".repeat(str.length()).split("");
     }
 
-    public void getGuess(String s) {
+    public void getGuess(String str) {
+        String s = str.toLowerCase();
         LOGGER.info("Guess a letter:");
         if (s.equals("*")) {
             defeat();
@@ -67,7 +68,6 @@ public class GameLogic {
         wordLength -= list.size();
         LOGGER.info("Hit!");
         LOGGER.info(toStr(userAnswer));
-
     }
 
     private static void badAnswer() {

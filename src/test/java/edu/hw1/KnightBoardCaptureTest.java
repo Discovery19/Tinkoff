@@ -18,8 +18,10 @@ class KnightBoardCaptureTest {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 1, 0, 0, 0, 0, 0, 1},
             {0, 0, 0, 0, 1, 0, 0, 0}};
+
         //act
         boolean res = Task8.knightBoardCapture(board);
+
         //assert
         assertThat(res).isTrue();
     }
@@ -37,8 +39,10 @@ class KnightBoardCaptureTest {
             {0, 0, 0, 0, 0, 1, 0, 1},
             {1, 0, 0, 0, 1, 0, 1, 0},
             {0, 0, 0, 1, 0, 1, 0, 1}};
+
         //act
         boolean res = Task8.knightBoardCapture(board);
+
         //assert
         assertThat(res).isFalse();
     }
@@ -56,8 +60,10 @@ class KnightBoardCaptureTest {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0}};
+
         //act
         boolean res = Task8.knightBoardCapture(board);
+
         //assert
         assertThat(res).isTrue();
     }
@@ -75,8 +81,10 @@ class KnightBoardCaptureTest {
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1}};
+
         //act
         boolean res = Task8.knightBoardCapture(board);
+
         //assert
         assertThat(res).isFalse();
     }
@@ -94,8 +102,10 @@ class KnightBoardCaptureTest {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0}};
+
         //act
         boolean res = Task8.knightBoardCapture(board);
+
         //assert
         assertThat(res).isFalse();
     }

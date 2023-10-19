@@ -11,8 +11,10 @@ class RotateRightLeftTest {
         //arrange
         int number = 8;
         int rotateNum = 1;
+
         //act
         int res = Task7.rotateRight(number, rotateNum);
+
         //assert
         assertThat(res).isEqualTo(4);
     }
@@ -23,8 +25,10 @@ class RotateRightLeftTest {
         //arrange
         int number = 16;
         int rotateNum = 2;
+
         //act
         int res = Task7.rotateLeft(number, rotateNum);
+
         //assert
         assertThat(res).isEqualTo(2);
     }
@@ -35,8 +39,10 @@ class RotateRightLeftTest {
         //arrange
         int number = 1;
         int rotateNum = 1;
+
         //act
         int res = Task7.rotateLeft(number, rotateNum);
+
         //assert
         assertThat(res).isEqualTo(1);
     }
@@ -47,8 +53,10 @@ class RotateRightLeftTest {
         //arrange
         int number = 1;
         int rotateNum = 1;
+
         //act
         int res = Task7.rotateRight(number, rotateNum);
+
         //assert
         assertThat(res).isEqualTo(1);
     }
@@ -59,8 +67,10 @@ class RotateRightLeftTest {
         //arrange
         int number = 10;
         int rotateNum = -1;
+
         //act
         int res = Task7.rotateRight(number, rotateNum);
+
         //assert
         assertThat(res).isEqualTo(10);
     }

@@ -12,6 +12,10 @@ class FixStringTest {
         String stringEven = "hTsii  s aimex dpus rtni.g";
         //act
         String res = Task4.fixString(stringEven);
+
+        //act
+        String res = Task4.fixString(stringEven);
+
         //assert
         assertThat(res).isEqualTo("This is a mixed up string.");
     }
@@ -23,6 +27,10 @@ class FixStringTest {
         String stringOdd = "badce";
         //act
         String res = Task4.fixString(stringOdd);
+
+        //act
+        String res = Task4.fixString(stringOdd);
+
         //assert
         assertThat(res).isEqualTo("abcde");
     }

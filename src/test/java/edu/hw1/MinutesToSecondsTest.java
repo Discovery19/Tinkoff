@@ -12,6 +12,10 @@ class MinutesToSecondsTest {
         String string = "01:00";
         //act
         int res = Task1.minutesToSeconds(string);
+
+        //act
+        int res = Task1.minutesToSeconds(string);
+
         //assert
         assertThat(res).isEqualTo(60);
     }
@@ -23,6 +27,10 @@ class MinutesToSecondsTest {
         String string = "00:00";
         //act
         int res = Task1.minutesToSeconds(string);
+
+        //act
+        int res = Task1.minutesToSeconds(string);
+
         //assert
         assertThat(res).isZero();
     }
@@ -33,6 +41,10 @@ class MinutesToSecondsTest {
         String string = "16:60";
         //act
         int res = Task1.minutesToSeconds(string);
+
+        //act
+        int res = Task1.minutesToSeconds(string);
+
         //assert
         assertThat(res).isEqualTo(-1);
     }
@@ -43,6 +55,10 @@ class MinutesToSecondsTest {
         String string = "16M:50S";
         //act
         int res = Task1.minutesToSeconds(string);
+
+        //act
+        int res = Task1.minutesToSeconds(string);
+
         //assert
         assertThat(res).isEqualTo(-1);
     }

@@ -12,6 +12,10 @@ class IsPalindromeDescendantTest {
         int palindrome = 123456789;
         //act
         boolean res = Task5.isPalindromeDescendant(palindrome);
+
+        //act
+        boolean res = Task5.isPalindromeDescendant(palindrome);
+
         //assert
         assertThat(res).isFalse();
     }
@@ -23,6 +27,10 @@ class IsPalindromeDescendantTest {
         int palindrome = 23336014;
         //act
         boolean res = Task5.isPalindromeDescendant(palindrome);
+
+        //act
+        boolean res = Task5.isPalindromeDescendant(palindrome);
+
         //assert
         assertThat(res).isTrue();
     }

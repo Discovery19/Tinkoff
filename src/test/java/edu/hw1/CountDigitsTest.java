@@ -11,6 +11,10 @@ class CountDigitsTest {
         int fourRangeNumber = 4666;
         //act
         int res = Task2.countDigits(fourRangeNumber);
+
+        //act
+        int res = Task2.countDigits(fourRangeNumber);
+      
         //assert
         assertThat(res).isEqualTo(4);
     }
@@ -19,8 +23,13 @@ class CountDigitsTest {
     void countDigitsShouldConvertOne() {
         //arrange
         int nul = 0;
+      
         //act
         int res = Task2.countDigits(nul);
+
+        //act
+        int res = Task2.countDigits(nul);
+
         //assert
         assertThat(res).isEqualTo(1);
     }

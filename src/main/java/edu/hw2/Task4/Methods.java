@@ -7,6 +7,7 @@ public class Methods {
     private Methods() {
 
     }
+
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static void methodOne() {

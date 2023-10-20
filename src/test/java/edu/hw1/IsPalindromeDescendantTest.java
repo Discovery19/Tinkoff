@@ -10,8 +10,10 @@ class IsPalindromeDescendantTest {
     void isPalindromeDescendant_False() {
         //arrange
         int palindrome = 123456789;
+
         //act
         boolean res = Task5.isPalindromeDescendant(palindrome);
+
         //assert
         assertThat(res).isFalse();
     }
@@ -21,8 +23,10 @@ class IsPalindromeDescendantTest {
     void isPalindromeDescendant_True() {
         //arrange
         int palindrome = 23336014;
+
         //act
         boolean res = Task5.isPalindromeDescendant(palindrome);
+
         //assert
         assertThat(res).isTrue();
     }

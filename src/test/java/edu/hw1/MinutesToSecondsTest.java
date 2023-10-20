@@ -10,8 +10,10 @@ class MinutesToSecondsTest {
     void minutesToSeconds_Sixty() {
         //arrange
         String string = "01:00";
+
         //act
         int res = Task1.minutesToSeconds(string);
+
         //assert
         assertThat(res).isEqualTo(60);
     }
@@ -21,8 +23,10 @@ class MinutesToSecondsTest {
     void minutesToSeconds_Zero() {
         //arrange
         String string = "00:00";
+
         //act
         int res = Task1.minutesToSeconds(string);
+
         //assert
         assertThat(res).isZero();
     }
@@ -31,8 +35,10 @@ class MinutesToSecondsTest {
     void minutesToSeconds_MoreSixtySec() {
         //arrange
         String string = "16:60";
+
         //act
         int res = Task1.minutesToSeconds(string);
+
         //assert
         assertThat(res).isEqualTo(-1);
     }
@@ -41,8 +47,10 @@ class MinutesToSecondsTest {
     void minutesToSeconds_BadString() {
         //arrange
         String string = "16M:50S";
+
         //act
         int res = Task1.minutesToSeconds(string);
+
         //assert
         assertThat(res).isEqualTo(-1);
     }

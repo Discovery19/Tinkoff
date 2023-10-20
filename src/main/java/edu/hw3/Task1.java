@@ -10,7 +10,7 @@ public class Task1 {
     private static final int MIN_SMALL = 97;
     private static final int MAX_SMALL = 122;
 
-    public static String аtBash(String string) {
+    public static String atBash(String string) {
         char[] array = string.toCharArray();
         for (int i = 0; i < array.length; i++) {
             if (array[i] >= MIN_BIG && array[i] <= MAX_BIG) {

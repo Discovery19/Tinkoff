@@ -1,13 +1,11 @@
 package edu.hw3.Task6;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class Task6 implements StockMarket{
-    private Task6(){
-    }
-    private static PriorityQueue<Stock> stocks = new PriorityQueue<>();
+public class Task6 implements StockMarket {
+    private static PriorityQueue<Stock> stocks = new PriorityQueue<>(new StockPriceComparator());
+
     @Override
     public void add(Stock stock) {
         stocks.add(stock);
@@ -15,7 +13,7 @@ public class Task6 implements StockMarket{
 
     @Override
     public void remove(Stock stock) {
-        stocks.remove(stock);
+        stocks.removeIf(stk -> stk.getName().equals(stock.getName()));
     }
 
     @Override
@@ -23,12 +21,11 @@ public class Task6 implements StockMarket{
         return stocks.peek();
     }
 
-    public static void main(String[] args) {
-        stocks.add(new Stock("A", 10));
-        stocks.add(new Stock("B", 110));
-        stocks.add(new Stock("12A", 1));
-        stocks.add(new Stock("13A", 1000));
-
+    static class StockPriceComparator implements Comparator<Stock> {
+        @Override
+        public int compare(Stock s1, Stock s2) {
+            return (-1) * Integer.compare(s1.getPrice(), s2.getPrice());
+        }
     }
 }
 

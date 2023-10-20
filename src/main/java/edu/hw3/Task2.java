@@ -7,7 +7,7 @@ public class Task2 {
     private Task2() {
     }
 
-    public static String clusterize(String string) {
+    public static List<String> clusterize(String string) {
         int len = 0;
         int open = 0;
         int close = 0;
@@ -25,9 +25,6 @@ public class Task2 {
             }
             len++;
         }
-        return result.toString();
-    }
-
-    public static void main(String[] args) {
+        return result;
     }
 }

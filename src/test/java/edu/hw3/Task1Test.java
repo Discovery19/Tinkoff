@@ -11,7 +11,7 @@ class Task1Test {
         //arrange
         String string = "abcdef";
         //act
-        String res = Task1.аtBash(string);
+        String res = Task1.atBash(string);
         //assert
         assertThat(res).isEqualTo("zyxwvu");
     }
@@ -22,7 +22,7 @@ class Task1Test {
         //arrange
         String string = "AbcDef";
         //act
-        String res = Task1.аtBash(string);
+        String res = Task1.atBash(string);
         //assert
         assertThat(res).isEqualTo("ZyxWvu");
     }
@@ -33,7 +33,7 @@ class Task1Test {
         //arrange
         String string = "abc123 ЧтО-то def";
         //act
-        String res = Task1.аtBash(string);
+        String res = Task1.atBash(string);
         //assert
         assertThat(res).isEqualTo("zyx123 ЧтО-то wvu");
     }

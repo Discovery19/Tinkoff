@@ -5,12 +5,11 @@ public class Main {
 
     }
 
-    private static final int MAXATTEMPTS = 10;
+    private static final int MAX_ATTEMPTS = 10;
 
     public static void main(String[] args) throws Exception {
-
         ConnectionManager dc = new DefaultConnectionManager();
-        PopularCommandExecutor cmd = new PopularCommandExecutor(dc, MAXATTEMPTS);
+        PopularCommandExecutor cmd = new PopularCommandExecutor(dc, MAX_ATTEMPTS);
         cmd.updatePackages();
     }
 }

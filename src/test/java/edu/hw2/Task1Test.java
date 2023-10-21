@@ -15,26 +15,29 @@ class Task1Test {
             Arguments.of(new Expr.Negate(new Expr.Constant(40)), new Expr.Constant(10))
         };
     }
+
     @ParameterizedTest
     @MethodSource("constants")
     @DisplayName("Параметризованный тест сумма двух чисел с разными знаками")
     void standardAddition(Expr a, Expr b) {
         assertThat(new Expr.Addition(a, b).evaluate()).isEqualTo(-30);
     }
+
     @Test
     @DisplayName("Стандартное умножение простых чисел")
-    void standardMultiplication(){
+    void standardMultiplication() {
         var two = new Expr.Constant(2);
         var four = new Expr.Constant(4);
-        var multi= new Expr.Multiplication(two,four);
+        var multi = new Expr.Multiplication(two, four);
         assertThat(multi.evaluate()).isEqualTo(8);
     }
+
     @Test
     @DisplayName("Стандартное возведение в степень")
-    void standardExponent(){
+    void standardExponent() {
         var two = new Expr.Constant(2);
         var four = new Expr.Constant(4);
-        var multi= new Expr.Exponent(two,four);
+        var multi = new Expr.Exponent(two, four);
         assertThat(multi.evaluate()).isEqualTo(16);
     }
 }

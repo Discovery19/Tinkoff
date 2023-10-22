@@ -44,7 +44,7 @@ class RotateRightLeftTest {
         int res = Task7.rotateLeft(number, rotateNum);
 
         //assert
-        assertThat(res).isOne();
+        assertThat(res).isEqualTo(1);
     }
 
     @Test
@@ -58,7 +58,7 @@ class RotateRightLeftTest {
         int res = Task7.rotateRight(number, rotateNum);
 
         //assert
-        assertThat(res).isOne();
+        assertThat(res).isEqualTo(1);
     }
 
     @Test

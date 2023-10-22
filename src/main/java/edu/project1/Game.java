@@ -18,9 +18,9 @@ public class Game {
     }
 
     public GameLogic startForTest(Dictionary dictionary) {
-        GameLogic gl = new GameLogic();
-        gl.gameStart(dictionary.getRandomWord());
-        return gl;
+        GameLogic gameLogic = new GameLogic();
+        gameLogic.gameStart(dictionary.getRandomWord());
+        return gameLogic;
     }
 
 }

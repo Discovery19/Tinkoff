@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class DictionaryFromFile implements Dictionary {
-    String[] dictionary;
+    private String[] dictionary;
 
     public Dictionary setDictionary(String path) throws IOException {
         FileReader fileReader = new FileReader(path);

@@ -5,15 +5,15 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class GameLogic {
-    private static final Logger LOGGER = LogManager.getLogger();
+public final class GameLogic implements GameExit {
+    private static final int MAX_ATTEMPTS = 5;
+    private static final int MIN_LEN = 3;
+    public static final Logger LOGGER = LogManager.getLogger();
     private int attempts = 0;
-    private final int maxAttempts = 5;
+    private boolean gameStatus = true;
     private int wordLength;
     private String[] word;
     private String[] userAnswer;
-    private boolean gameStatus = true;
-    private static final int MIN_LEN = 3;
 
     public boolean getGameStatus() {
         return gameStatus;
@@ -21,7 +21,7 @@ public class GameLogic {
 
     public void gameStart(String str) {
         if (str.length() < MIN_LEN) {
-            error();
+            gameStatus = error();
             return;
         }
         wordLength = str.length();
@@ -33,15 +33,15 @@ public class GameLogic {
     public void getGuess(String str) {
         String s = str.toLowerCase();
         if (s.equals("*")) {
-            defeat();
+            gameStatus = defeat();
         } else {
             wordCheck(s);
         }
-        if (attempts == maxAttempts) {
-            defeat();
+        if (attempts == MAX_ATTEMPTS) {
+            gameStatus = defeat();
         }
         if (wordLength <= 0) {
-            win();
+            gameStatus = win();
         }
 
     }
@@ -53,10 +53,10 @@ public class GameLogic {
                 replaceList.add(i);
             }
         }
-        if (!replaceList.isEmpty()) {
-            goodAnswer(replaceList);
-        } else {
+        if (replaceList.isEmpty()) {
             badAnswer();
+        } else {
+            goodAnswer(replaceList);
         }
     }
 
@@ -67,16 +67,16 @@ public class GameLogic {
         }
         wordLength -= list.size();
         LOGGER.info("Hit!");
-        LOGGER.info(toStr(userAnswer));
+        LOGGER.info(buildStringForOutput(userAnswer));
     }
 
     private void badAnswer() {
         attempts++;
         LOGGER.info("Missed, mistake " + attempts + " out of 5.");
-        LOGGER.info(toStr(userAnswer));
+        LOGGER.info(buildStringForOutput(userAnswer));
     }
 
-    private String toStr(String[] array) {
+    private String buildStringForOutput(String[] array) {
         StringBuilder sb = new StringBuilder();
         for (String i : array) {
             sb.append(i);
@@ -84,18 +84,4 @@ public class GameLogic {
         return sb.toString();
     }
 
-    private void defeat() {
-        gameStatus = false;
-        LOGGER.error("You LOST!");
-    }
-
-    private void win() {
-        gameStatus = false;
-        LOGGER.error("You WIN!");
-    }
-
-    private void error() {
-        gameStatus = false;
-        LOGGER.error("Неправильно задано слово");
-    }
 }

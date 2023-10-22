@@ -13,7 +13,7 @@ public class Task6 {
     private static final int THOUSAND = 1000;
     private static final int TENTHOUSAND = 10000;
 
-    public static int countK(int a, int k) {
+    public static int countKaprekar(int a, int k) {
         int n = a;
         if (k == 0 && !firstCheck(a)) {
             return -1;
@@ -34,7 +34,7 @@ public class Task6 {
             num /= BASE;
 
         }
-        return countK(q - n, k + 1);
+        return countKaprekar(q - n, k + 1);
     }
 
     private static boolean firstCheck(int a) {

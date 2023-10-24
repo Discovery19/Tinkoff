@@ -2,13 +2,13 @@ package edu.project1;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public final class GameLogic implements GameExit {
     private static final int MAX_ATTEMPTS = 5;
     private static final int MIN_LEN = 3;
-    public static final Logger LOGGER = LogManager.getLogger();
+
     private int attempts = 0;
     private boolean gameStatus = true;
     private int wordLength;
@@ -25,7 +25,7 @@ public final class GameLogic implements GameExit {
             return;
         }
         wordLength = str.length();
-        LOGGER.warn(str);
+        log.warn(str);
         word = str.toLowerCase().split("");
         userAnswer = "*".repeat(str.length()).split("");
     }
@@ -66,14 +66,14 @@ public final class GameLogic implements GameExit {
             word[i] = "*";
         }
         wordLength -= list.size();
-        LOGGER.info("Hit!");
-        LOGGER.info(buildStringForOutput(userAnswer));
+        log.info("Hit!");
+        log.info(buildStringForOutput(userAnswer));
     }
 
     private void badAnswer() {
         attempts++;
-        LOGGER.info("Missed, mistake " + attempts + " out of 5.");
-        LOGGER.info(buildStringForOutput(userAnswer));
+        log.info("Missed, mistake " + attempts + " out of 5.");
+        log.info(buildStringForOutput(userAnswer));
     }
 
     private String buildStringForOutput(String[] array) {

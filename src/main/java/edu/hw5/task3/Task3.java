@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class Task3 implements Handler {
-    private Task3() {
+    public Task3() {
     }
 
-    private LocalDate localDate = LocalDate.now();
     private final List<String> defaultFormats = Arrays.asList(
         "yyyy-MM-dd",
         "yyyy-MM-d",
@@ -26,21 +25,17 @@ public class Task3 implements Handler {
 
     @Override
     public LocalDate getDate(String string) {
-        switch (string) {
-            case "tomorrow":
-                return localDate.plusDays(1);
-            case "today":
-                return localDate;
-            case "yesterday":
-                return localDate.minusDays(1);
-            default:
-                getDateDays(string);
-                break;
-        }
-        return null;
+        LocalDate localDate = LocalDate.now();
+        return switch (string) {
+            case "tomorrow" -> localDate.plusDays(1);
+            case "today" -> localDate;
+            case "yesterday" -> localDate.minusDays(1);
+            default -> getDateDays(string);
+        };
     }
 
     private LocalDate getDateDays(String string) {
+        LocalDate localDate = LocalDate.now();
         if (string.contains("day ago")) {
             return localDate.minusDays(1);
         } else if (string.contains("days ago")) {
@@ -56,6 +51,7 @@ public class Task3 implements Handler {
             } catch (Exception ignored) {
             }
         }
+        LocalDate localDate = getDate(string);
         if (localDate != null) {
             return Optional.of(localDate);
         }

@@ -2,6 +2,8 @@ package edu.hw5;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +24,14 @@ public class Task2 {
             date = date.plusMonths(1);
         }
         return result;
+    }
+    public static LocalDate getNextBlackFriday(LocalDate date) {
+        while (date.getYear() < date.plusYears(1).getYear()) {
+            date = date.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+            if (date.getDayOfMonth() == DAY) {
+                return date;
+            }
+        }
+        return null;
     }
 }

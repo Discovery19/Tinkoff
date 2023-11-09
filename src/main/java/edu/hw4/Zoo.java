@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Zoo {
-    private final static int ONE_HUNDRED = 100;
+    private static final int ONE_HUNDRED = 100;
     private final List<Animal> animals = new ArrayList<>();
 
     public void setAnimal(Animal animal) {

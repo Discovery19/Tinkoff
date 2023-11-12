@@ -20,10 +20,14 @@ class CountDigitsTest {
     @Test @DisplayName("Проверка работы с нулем")
     void countDigitsShouldConvertOne() {
         //arrange
+<<<<<<< HEAD
         int nul = 0;
+=======
+        int zero = 0;
+>>>>>>> 9447ce8676dcbbacfbd167d3aa652b59ae179b2c
 
         //act
-        int res = Task2.countDigits(nul);
+        int res = Task2.countDigits(zero);
 
         //assert
         assertThat(res).isEqualTo(1);

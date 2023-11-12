@@ -16,7 +16,10 @@ public class Task2 {
             switch (string.charAt(len)) {
                 case '(' -> open++;
                 case ')' -> close++;
-                default -> throw new IllegalStateException("Unexpected value: " + string.charAt(len));
+                default -> throw new IllegalArgumentException("Unexpected value: " + string.charAt(len));
+            }
+            if (open < close) {
+                throw new IllegalStateException("Unbalanced string");
             }
             if (open == close) {
                 result.add(string.substring(len - open - close + 1, len + 1));

@@ -5,22 +5,22 @@ public class Task1 {
 
     }
 
-    private static final int MIN_BIG = 65;
-    private static final int MAX_BIG = 90;
-    private static final int MIN_SMALL = 97;
-    private static final int MAX_SMALL = 122;
+    private static final int MIN_BIG = 'A';
+    private static final int MAX_BIG = 'Z';
+    private static final int MIN_SMALL = 'a';
+    private static final int MAX_SMALL = 'z';
 
     public static String atBash(String string) {
-        char[] array = string.toCharArray();
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] >= MIN_BIG && array[i] <= MAX_BIG) {
-                array[i] = (char) (MIN_BIG + MAX_BIG - array[i]);
+        char[] resultCharArray = string.toCharArray();
+        for (int i = 0; i < resultCharArray.length; i++) {
+            if (resultCharArray[i] >= MIN_BIG && resultCharArray[i] <= MAX_BIG) {
+                resultCharArray[i] = (char) (MIN_BIG + MAX_BIG - resultCharArray[i]);
             }
-            if (array[i] >= MIN_SMALL && array[i] <= MAX_SMALL) {
-                array[i] = (char) (MIN_SMALL + MAX_SMALL - array[i]);
+            if (resultCharArray[i] >= MIN_SMALL && resultCharArray[i] <= MAX_SMALL) {
+                resultCharArray[i] = (char) (MIN_SMALL + MAX_SMALL - resultCharArray[i]);
             }
         }
-        return new String(array);
+        return new String(resultCharArray);
     }
 
 }

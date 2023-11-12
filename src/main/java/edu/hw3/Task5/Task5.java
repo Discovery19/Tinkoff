@@ -8,11 +8,11 @@ public class Task5 {
     private Task5() {
     }
 
-    public static String[] parseContacts(String[] array, String modifier) {
+    public static Contact[] parseContacts(String[] array, String modifier) {
         List<Contact> contacts = new ArrayList<>();
         for (String string : array) {
             if (string != null) {
-                contacts.add(new Contact(string.split(" ")));
+                contacts.add(Contact.createContact(string.split(" ")));
             }
         }
         switch (modifier) {
@@ -21,18 +21,14 @@ public class Task5 {
             default -> {
             }
         }
-        String[] result = new String[contacts.size()];
-        for (int i = 0; i < contacts.size(); i++) {
-            result[i] = contacts.get(i).toString();
-        }
-        return result;
+        return contacts.toArray(new Contact[0]);
     }
 
     static class NameComparator implements Comparator<Contact> {
 
         @Override
         public int compare(Contact contact1, Contact contact2) {
-            return contact1.getSurname().compareTo(contact2.getSurname());
+            return contact1.surname().compareTo(contact2.surname());
         }
     }
 

@@ -10,7 +10,7 @@ class Task7Test {
     @DisplayName("Мап с нулевым ключом")
     void tree() {
         //arrange
-        TreeMap<String, String> treeMap = new TreeMap<>(Task7.COMPARATOR);
+        TreeMap<String, String> treeMap = new TreeMap<>(new Task7Comparator());
         //act
         treeMap.put(null, "value");
         treeMap.put("key", "value1");

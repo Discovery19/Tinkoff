@@ -13,7 +13,7 @@ public class Task6 implements StockMarket {
 
     @Override
     public void remove(Stock stock) {
-        stocks.removeIf(stk -> stk.getName().equals(stock.getName()));
+        stocks.removeIf(stk -> stk.name().equals(stock.name()));
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Task6 implements StockMarket {
     static class StockPriceComparator implements Comparator<Stock> {
         @Override
         public int compare(Stock s1, Stock s2) {
-            return (-1) * Integer.compare(s1.getPrice(), s2.getPrice());
+            return (-1) * Integer.compare(s1.price(), s2.price());
         }
     }
 }

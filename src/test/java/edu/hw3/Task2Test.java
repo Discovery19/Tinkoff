@@ -7,6 +7,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class Task2Test {
     @Test
+    @DisplayName("Простая кластеризация, пустая строка")
+    void clusterizeEmpty() {
+        //arrange
+        String string = "";
+        //act
+        List<String> result = Task2.clusterize(string);
+        //assert
+        assertThat(result).isEqualTo(List.of());
+    }
+    @Test
     @DisplayName("Простая кластеризация, разделение на три группы")
     void clusterizeEasy() {
         //arrange

@@ -13,7 +13,7 @@ public class Task8 {
         private int index;
 
         BackIterator(Collection<T> collection) {
-            this.elements = List.copyOf(collection);
+            this.elements = collection.stream().toList();
             index = elements.size() - 1;
         }
 

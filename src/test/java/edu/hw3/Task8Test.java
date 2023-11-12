@@ -2,6 +2,7 @@ package edu.hw3;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,7 +12,7 @@ class Task8Test {
     @DisplayName("Итерация в обратную сторону Set")
     void backIterationSet() {
         //arrange
-        Set<Integer> set = Set.of(1, 2, 3, 4, 5);
+        TreeSet<Integer> set = new TreeSet<>(Set.of(1, 2, 3, 4, 5));
         StringBuilder sb = new StringBuilder();
         Task8.BackIterator itr = new Task8.BackIterator(set);
         //act

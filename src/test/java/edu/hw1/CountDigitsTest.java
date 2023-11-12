@@ -21,10 +21,14 @@ class CountDigitsTest {
     void countDigitsShouldConvertOne() {
         //arrange
 <<<<<<< HEAD
+<<<<<<< HEAD
         int nul = 0;
 =======
         int zero = 0;
 >>>>>>> 9447ce8676dcbbacfbd167d3aa652b59ae179b2c
+=======
+        int zero = 0;
+>>>>>>> c3ba2c90c553a3724fd3db96fbeb6ac8a442a5fc
 
         //act
         int res = Task2.countDigits(zero);

@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Task2Test {
     @Test
     @DisplayName("Стандартная сотрировка от большего к меньшему по весу")
-    void sortAnimalsByHeight() {
+    void sortAnimalsByWeight() {
         //arrange
         Zoo zoo = new Zoo();
         zoo.setAnimal(new Animal("White dog", DOG, F, 12, 120, 60, true));
@@ -30,7 +30,7 @@ class Task2Test {
 
     @Test
     @DisplayName("Стандартная сотрировка от большего к меньшему по весу взять первые 2 животных")
-    void sortAnimalsByHeightGetFirstK() {
+    void sortAnimalsByWeightGetFirstK() {
         //arrange
         Zoo zoo = new Zoo();
         zoo.setAnimal(new Animal("White dog", DOG, F, 12, 120, 60, true));

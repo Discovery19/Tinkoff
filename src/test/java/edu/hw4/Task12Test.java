@@ -22,10 +22,10 @@ class Task12Test {
         zoo.setAnimal(new Animal("Just cat", CAT, M, 4, 80, 30, true));
         zoo.setAnimal(new Animal("Just fish", FISH, M, 8, 80, 30, false));
         //act
-        List<Animal> animals = zoo.weightMoreThanHeight();
+        var animals = zoo.weightMoreThanHeight();
         //assert
         assertThat(animals)
-            .isEqualTo(List.of(new Animal("Bird", BIRD, F, 12, 120, 160, false)));
+            .isOne();
     }
 
     @Test
@@ -34,8 +34,8 @@ class Task12Test {
         //arrange
         Zoo zoo = new Zoo();
         //act
-        List<Animal> animals = zoo.weightMoreThanHeight();
+        var animals = zoo.weightMoreThanHeight();
         //assert
-        assertThat(animals).isEmpty();
+        assertThat(animals).isZero();
     }
 }

@@ -2,6 +2,7 @@ package edu.hw4;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import java.util.Map;
 import static edu.hw4.Animal.Sex.F;
 import static edu.hw4.Animal.Sex.M;
 import static edu.hw4.Animal.Type.CAT;
@@ -18,10 +19,13 @@ class Task6Test {
         zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
         zoo.setAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
         //act
-        Animal animal = zoo.theHeaviestAnimal();
+        var animal = zoo.theHeaviestAnimal();
         //assert
         assertThat(animal)
-            .isEqualTo(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+            .isEqualTo(
+                Map.of(
+                    CAT, new Animal("Just cat", CAT, M, 8, 80, 30 , true)
+                    , DOG , new Animal("Black dog", DOG, M, 10, 130, 65 , true)));
     }
 
     @Test
@@ -30,8 +34,8 @@ class Task6Test {
         //arrange
         Zoo zoo = new Zoo();
         //act
-        Animal animal = zoo.theHeaviestAnimal();
+        var animal = zoo.theHeaviestAnimal();
         //assert
-        assertThat(animal).isNull();
+        assertThat(animal).isEqualTo(Map.of());
     }
 }

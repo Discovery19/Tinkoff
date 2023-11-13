@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class Task2 {
-    public static void main(String[] args) {
-        cloneFile(Path.of("src/main/resources/hw6/Tinkoff Bank Biggest Secret.txt"));
+    public Task2() {
     }
-    public static void cloneFile(Path path) {
+
+    public void cloneFile(Path path) {
         File originalFile = path.toFile();
         String originalFileName = originalFile.getName();
         String originalName = originalFileName.substring(0, originalFileName.lastIndexOf("."));
@@ -21,7 +22,8 @@ public class Task2 {
 
         while (newFile.exists()) {
             copyNumber++;
-            newFile = new File(path.getParent().toString() + "\\" + originalName + " — копия (" + copyNumber + ")" + extension);
+            newFile = new File(
+                path.getParent().toString() + "\\" + originalName + " — копия (" + copyNumber + ")" + extension);
         }
 
         try {

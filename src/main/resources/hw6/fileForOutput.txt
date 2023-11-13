@@ -1,3 +1,0 @@
-1:new String
-a:something
-2:another String

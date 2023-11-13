@@ -287,7 +287,7 @@
         <module name="MissingSwitchDefault"/>
         <module name="ModifiedControlVariable"/>
         <module name="MultipleStringLiterals">
-            <!-- Allow zero-length and 1-character strings -->
+            <!-- Allow zero-length and 1.txt-character strings -->
             <property name="ignoreStringsRegexp" value='^(("")|(".")|("..")|("..>"))$'/>
         </module>
         <module name="MultipleVariableDeclarations"/>

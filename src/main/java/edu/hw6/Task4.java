@@ -1,40 +1,51 @@
 package edu.hw6;
-
-import lombok.extern.slf4j.Slf4j;
-
-import java.io.*;
+//CHECKSTYLE:OFF: checkstyle:ImportOrder
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
+import java.io.BufferedOutputStream;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Task4 {
+    public Task4() {
+    }
+
     private static final Path PATH = Path.of("src/main/resources/hw6/fileForTask4.txt");
 
-    public static OutputStream createFile(Path path) throws IOException {
+    public Path getPath() {
+        return PATH;
+    }
+
+    private OutputStream createFile(Path path) throws IOException {
         Files.createFile(path);
         return Files.newOutputStream(path);
     }
 
-    public static CheckedOutputStream checkStream(OutputStream outputStream) {
+    private CheckedOutputStream checkStream(OutputStream outputStream) {
         return new CheckedOutputStream(outputStream, new CRC32());
     }
 
-    public static BufferedOutputStream addBuffer(OutputStream outputStream) {
+    private BufferedOutputStream addBuffer(OutputStream outputStream) {
         return new BufferedOutputStream(outputStream);
     }
 
-    public static OutputStreamWriter addOutputStreamWriter(OutputStream outputStream) {
+    private OutputStreamWriter addOutputStreamWriter(OutputStream outputStream) {
         return new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
     }
 
-    public static PrintWriter addPrintWriter(Writer writer) {
+    private PrintWriter addPrintWriter(Writer writer) {
         return new PrintWriter(writer);
     }
 
-    public static void writeToFile() {
+    public void writeToFile() {
         try (OutputStream outputStream = createFile(PATH);
              CheckedOutputStream checkedOutputStream = checkStream(outputStream);
              BufferedOutputStream bufferedOutputStream = addBuffer(checkedOutputStream);

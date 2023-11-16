@@ -14,14 +14,14 @@ class Task7Test {
     void oldestAnimalStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
-        zoo.setAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
         //act
-        Animal animal = zoo.theOldestAnimal();
+        Animal animal = zoo.theOldestAnimal(2);
         //assert
         assertThat(animal)
-            .isEqualTo(new Animal("Dog", DOG, F, 12, 120, 60, true));
+            .isEqualTo(new Animal("Black dog", DOG, M, 10, 130, 65, true));
     }
 
     @Test
@@ -30,7 +30,7 @@ class Task7Test {
         //arrange
         Zoo zoo = new Zoo();
         //act
-        Animal animal = zoo.theOldestAnimal();
+        Animal animal = zoo.theOldestAnimal(1);
         //assert
         assertThat(animal).isNull();
     }

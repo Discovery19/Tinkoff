@@ -3,6 +3,7 @@ package edu.hw4;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public class Zoo {
     private static final int ONE_HUNDRED = 100;
     private final List<Animal> animals = new ArrayList<>();
 
-    public void setAnimal(Animal animal) {
+    public void addAnimal(Animal animal) {
         animals.add(animal);
     }
 
@@ -23,25 +24,14 @@ public class Zoo {
 
     //task1
     public List<Animal> sortAnimalsByHeight() {
-        return animals.stream().sorted((o1, o2) -> Integer.compare(o1.height(), o2.height()))
-            .collect(Collectors.toList());
+        return animals.stream().sorted(Comparator.comparing(Animal::height)).toList();
     }
 
     //task2
-    public List<Animal> sortAnimalsByWeight() {
-        return animals.stream().sorted((o1, o2) -> (-1) * Integer.compare(o1.weight(), o2.weight()))
-            .collect(Collectors.toList());
-    }
-
-    private boolean predicate() {
-        return true;
-    }
-
     public List<Animal> sortAnimalsByWeightGetKFirst(int k) {
-        return animals.stream().sorted((o1, o2) -> (-1) * Integer.compare(o1.weight(), o2.weight()))
-            .filter(x -> predicate())
-            .limit(k)
-            .collect(Collectors.toList());
+        return animals.stream()
+            .sorted(Comparator.comparing(Animal::weight).reversed())
+            .limit(k).toList();
     }
 
     //task3
@@ -74,8 +64,8 @@ public class Zoo {
     }
 
     //task7
-    public Animal theOldestAnimal() {
-        return animals.stream().max(Comparator.comparingInt(Animal::age)).orElse(null);
+    public Animal theOldestAnimal(int k) {
+        return animals.stream().sorted(Comparator.comparing(Animal::age)).limit(k).toList().getLast();
     }
 
     //task8
@@ -85,7 +75,7 @@ public class Zoo {
     }
 
     //task9
-    public int countPaws() {
+    public Integer countPaws() {
         return animals.stream()
             .mapToInt(Animal::paws)
             .sum();
@@ -108,7 +98,7 @@ public class Zoo {
 
     //task13
     public List<Animal> animalsWithDoubleNames() {
-        return animals.stream().filter(e -> e.name().split(" ").length > 1).toList();
+        return animals.stream().filter(e -> e.name().contains(" ")).toList();
     }
 
     //task14
@@ -137,7 +127,7 @@ public class Zoo {
         float allSpiders = animals.stream().filter(e -> e.type().equals(Animal.Type.SPIDER)).count();
         float dogsBites = animals.stream().filter(e -> e.type().equals(Animal.Type.DOG) && e.bites()).count();
         float allDogs = animals.stream().filter(e -> e.type().equals(Animal.Type.DOG)).count();
-        return spidersBites / allSpiders > dogsBites / allDogs;
+        return !(allDogs == 0 || allSpiders == 0) && spidersBites / allSpiders > dogsBites / allDogs;
     }
 
     //task18
@@ -146,87 +136,122 @@ public class Zoo {
             .max(Comparator.comparingInt(Animal::weight)).orElse(null);
     }
 
-    //task19
-    public Map<String, Set<ValidationError>> checkValidation() {
-        Map<String, Set<ValidationError>> result = new HashMap<>();
-        Optional<Animal> invalidAnimal = animals.stream()
-            .filter(animal -> animal.age() > ONE_HUNDRED || animal.age() < 0)
-            .findFirst();
-        if (invalidAnimal.isPresent()) {
-            result.put(
-                invalidAnimal.get().name(),
-                //CHECKSTYLE:OFF: checkstyle:MultipleStringLiterals
-                Set.of(new ValidationError("Invalid age"))
-            );
-        }
-
-        invalidAnimal = animals.stream()
-            .filter(animal -> animal.name().isEmpty())
-            .findFirst();
-        if (invalidAnimal.isPresent()) {
-            if (!result.containsKey(invalidAnimal.get().name())) {
-                result.put(
-                    invalidAnimal.get().name(),
-                    Set.of(new ValidationError("Invalid name"))
-                );
-            } else {
-                result.get(invalidAnimal.get().name()).add(new ValidationError("Invalid name"));
+    //task19/20
+    public Map<String, String> animalValidation() {
+        Map<String, Set<ValidationError>> errors = new HashMap<>();
+        for (Animal animal : animals) {
+            Set<ValidationError> set = checkAnimalValidation(animal);
+            if (!set.isEmpty()) {
+                String name = !animal.name().isEmpty() ? animal.name() : animal.type().toString();
+                errors.put(name, set);
             }
         }
-
-        invalidAnimal = animals.stream()
-            .filter(animal -> animal.weight() < 0)
-            .findFirst();
-        if (invalidAnimal.isPresent()) {
-            if (!result.containsKey(invalidAnimal.get().name())) {
-                result.put(
-                    invalidAnimal.get().name(),
-                    Set.of(new ValidationError("Invalid weight"))
-                );
-            } else {
-                result.get(invalidAnimal.get().name()).add(new ValidationError("Invalid weight"));
-            }
-        }
-
-        invalidAnimal = animals.stream()
-            .filter(animal -> animal.height() < 0)
-            .findFirst();
-        if (invalidAnimal.isPresent()) {
-            if (!result.containsKey(invalidAnimal.get().name())) {
-                result.put(
-                    invalidAnimal.get().name(),
-                    Set.of(new ValidationError("Invalid height"))
-                );
-            } else {
-                result.get(invalidAnimal.get().name()).add(new ValidationError("Invalid height"));
-            }
+        Map<String, String> result = new HashMap<>();
+        for (Map.Entry<String, Set<ValidationError>> entry : errors.entrySet()) {
+            result.put(entry.getKey(), entry.getValue().stream()
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString());
         }
         return result;
     }
 
-    //task20
-    public Map<String, String> animalsValidationNoThrowError() {
-        Map<String, String> errors = new HashMap<>();
-        animals.stream()
-            .filter(animal -> animal.age() > ONE_HUNDRED || animal.age() < 0)
-            .findFirst()
-            .ifPresent(animal -> errors.put(animal.name(), String.valueOf(animal.age())));
-
-        animals.stream()
-            .filter(animal -> animal.name().isEmpty())
-            .findFirst()
-            .ifPresent(animal -> errors.put(String.valueOf(animal.type()), animal.name()));
-
-        animals.stream()
-            .filter(animal -> animal.weight() < 0)
-            .findFirst()
-            .ifPresent(animal -> errors.put(animal.name(), String.valueOf(animal.weight())));
-
-        animals.stream()
-            .filter(animal -> animal.height() < 0)
-            .findFirst()
-            .ifPresent(animal -> errors.put(animal.name(), String.valueOf(animal.height())));
-
+    public Set<ValidationError> checkAnimalValidation(Animal animal) {
+        Set<ValidationError> errors = new HashSet<>();
+        if (animal.age() > ONE_HUNDRED || animal.age() < 0) {
+            errors.add(new ValidationError("Invalid age"));
+        }
+        if (animal.name().isEmpty()) {
+            errors.add(new ValidationError("Invalid name"));
+        }
+        if (animal.weight() <= 0) {
+            errors.add(new ValidationError("Invalid weight"));
+        }
+        if (animal.height() <= 0) {
+            errors.add(new ValidationError("Invalid height"));
+        }
         return errors;
     }
+
+//    public Map<String, Set<ValidationError>> checkValidation() {
+//        Map<String, Set<ValidationError>> result = new HashMap<>();
+//
+//        Optional<Animal> invalidAnimal = animals.stream()
+//            .filter(animal -> animal.age() > ONE_HUNDRED || animal.age() < 0)
+//            .findFirst();
+//        if (invalidAnimal.isPresent()) {
+//            result.put(
+//                invalidAnimal.get().name(),
+//                //CHECKSTYLE:OFF: checkstyle:MultipleStringLiterals
+//                Set.of(new ValidationError("Invalid age"))
+//            );
+//        }
+//
+//        invalidAnimal = animals.stream()
+//            .filter(animal -> animal.name().isEmpty())
+//            .findFirst();
+//        if (invalidAnimal.isPresent()) {
+//            if (!result.containsKey(invalidAnimal.get().name())) {
+//                result.put(
+//                    invalidAnimal.get().name(),
+//                    Set.of(new ValidationError("Invalid name"))
+//                );
+//            } else {
+//                result.get(invalidAnimal.get().name()).add(new ValidationError("Invalid name"));
+//            }
+//        }
+//
+//        invalidAnimal = animals.stream()
+//            .filter(animal -> animal.weight() <= 0)
+//            .findFirst();
+//        if (invalidAnimal.isPresent()) {
+//            if (!result.containsKey(invalidAnimal.get().name())) {
+//                result.put(
+//                    invalidAnimal.get().name(),
+//                    Set.of(new ValidationError("Invalid weight"))
+//                );
+//            } else {
+//                result.get(invalidAnimal.get().name()).add(new ValidationError("Invalid weight"));
+//            }
+//        }
+//
+//        invalidAnimal = animals.stream()
+//            .filter(animal -> animal.height() < 0)
+//            .findFirst();
+//        if (invalidAnimal.isPresent()) {
+//            if (!result.containsKey(invalidAnimal.get().name())) {
+//                result.put(
+//                    invalidAnimal.get().name(),
+//                    Set.of(new ValidationError("Invalid height"))
+//                );
+//            } else {
+//                result.get(invalidAnimal.get().name()).add(new ValidationError("Invalid height"));
+//            }
+//        }
+//        return result;
+//    }
+
+//    public Map<String, String> animalsValidationNoThrowError() {
+//        Map<String, String> errors = new HashMap<>();
+//        animals.stream()
+//            .filter(animal -> animal.age() > ONE_HUNDRED || animal.age() < 0)
+//            .findFirst()
+//            .ifPresent(animal -> errors.put(animal.name(), String.valueOf(animal.age())));
+//
+//        animals.stream()
+//            .filter(animal -> animal.name().isEmpty())
+//            .findFirst()
+//            .ifPresent(animal -> errors.put(String.valueOf(animal.type()), animal.name()));
+//
+//        animals.stream()
+//            .filter(animal -> animal.weight() < 0)
+//            .findFirst()
+//            .ifPresent(animal -> errors.put(animal.name(), String.valueOf(animal.weight())));
+//
+//        animals.stream()
+//            .filter(animal -> animal.height() < 0)
+//            .findFirst()
+//            .ifPresent(animal -> errors.put(animal.name(), String.valueOf(animal.height())));
+//
+//        return errors;
+//    }
 }

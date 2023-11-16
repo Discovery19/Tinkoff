@@ -16,10 +16,10 @@ class Task15Test {
     void sumWeightStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
-        zoo.setAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
-        zoo.setAnimal(new Animal("Just fish", FISH, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("Just fish", FISH, M, 8, 80, 30, true));
         //act
         var res = zoo.summarizeAnimalWeight(8,10);
         //assert

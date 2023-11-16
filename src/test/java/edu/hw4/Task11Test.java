@@ -16,10 +16,10 @@ class Task11Test {
     void biteChanceStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
-        zoo.setAnimal(new Animal("Just cat", CAT, M, 4, 80, 30, true));
-        zoo.setAnimal(new Animal("Just fish", FISH, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("Just cat", CAT, M, 4, 80, 30, true));
+        zoo.addAnimal(new Animal("Just fish", FISH, M, 8, 80, 30, true));
         //act
         List<Animal> animals = zoo.animalsThatCanBite();
         //assert

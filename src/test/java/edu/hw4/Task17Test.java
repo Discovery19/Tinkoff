@@ -15,10 +15,10 @@ class Task17Test {
     void spidersLessStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
-        zoo.setAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
-        zoo.setAnimal(new Animal("Just spider", SPIDER, M, 8, 80, 30, false));
+        zoo.addAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("Just spider", SPIDER, M, 8, 80, 30, false));
         //act
         boolean res = zoo.spidersBitesMore();
         //assert
@@ -30,10 +30,10 @@ class Task17Test {
     void spidersMoreStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("Spider", SPIDER, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, false));
-        zoo.setAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
-        zoo.setAnimal(new Animal("Just spider", SPIDER, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("Spider", SPIDER, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, false));
+        zoo.addAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("Just spider", SPIDER, M, 8, 80, 30, true));
         //act
         boolean res = zoo.spidersBitesMore();
         //assert

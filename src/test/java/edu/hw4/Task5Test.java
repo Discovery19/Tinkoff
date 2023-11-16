@@ -14,9 +14,9 @@ class Task5Test {
     void longestNameStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
-        zoo.setAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("Dog", DOG, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("Just cat", CAT, M, 8, 80, 30, true));
         //act
         Animal.Sex sex = zoo.whatSexAmountMore();
         //assert
@@ -28,8 +28,8 @@ class Task5Test {
     void longestNameOneLength() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("White dog", DOG, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("White dog", DOG, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
         //act
         Animal.Sex sex = zoo.whatSexAmountMore();
         //assert

@@ -17,10 +17,10 @@ class Task13Test {
     void doubleNameStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("Bird", BIRD, F, 12, 120, 160, false));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
-        zoo.setAnimal(new Animal("Just cat", CAT, M, 4, 80, 30, true));
-        zoo.setAnimal(new Animal("Just fish", FISH, M, 8, 80, 30, false));
+        zoo.addAnimal(new Animal("Bird", BIRD, F, 12, 120, 160, false));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("Just cat", CAT, M, 4, 80, 30, true));
+        zoo.addAnimal(new Animal("Just fish", FISH, M, 8, 80, 30, false));
         //act
         List<Animal> animals = zoo.animalsWithDoubleNames();
         //assert

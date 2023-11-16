@@ -15,9 +15,9 @@ class Task3Test {
     void typesOfAnimalsStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("White dog", DOG, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
-        zoo.setAnimal(new Animal("Black cat", CAT, M, 8, 80, 30, true));
+        zoo.addAnimal(new Animal("White dog", DOG, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("Black cat", CAT, M, 8, 80, 30, true));
         //act
         Map<Animal.Type, Integer> result = zoo.getAnimalTypes();
         //assert
@@ -29,8 +29,8 @@ class Task3Test {
     void typesOfAnimalsOneType() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("White dog", DOG, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
+        zoo.addAnimal(new Animal("White dog", DOG, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Black dog", DOG, M, 10, 130, 65, true));
         //act
         Map<Animal.Type, Integer> result = zoo.getAnimalTypes();
         //assert

@@ -15,12 +15,12 @@ class Task18Test {
     void fishStandard() {
         //arrange
         Zoo zoo = new Zoo();
-        zoo.setAnimal(new Animal("Fish", FISH, F, 12, 120, 60, true));
-        zoo.setAnimal(new Animal("Just spider", SPIDER, M, 8, 80, 30, false));
+        zoo.addAnimal(new Animal("Fish", FISH, F, 12, 120, 60, true));
+        zoo.addAnimal(new Animal("Just spider", SPIDER, M, 8, 80, 30, false));
         Zoo zoo2 = new Zoo();
-        zoo2.setAnimal(new Animal("Fish", FISH, F, 12, 120, 50, true));
+        zoo2.addAnimal(new Animal("Fish", FISH, F, 12, 120, 50, true));
         Zoo zoo3 = new Zoo();
-        zoo3.setAnimal(new Animal("Fish", FISH, F, 12, 120, 40, true));
+        zoo3.addAnimal(new Animal("Fish", FISH, F, 12, 120, 40, true));
         //act
         Animal res = zoo.heaviestFish(List.of(zoo.getAnimals(), zoo2.getAnimals(), zoo3.getAnimals()));
         //assert

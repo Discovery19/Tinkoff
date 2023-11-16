@@ -1,7 +1,9 @@
 package edu.project3;
 
+import edu.project3.parsers.AbstractParser;
 import edu.project3.parsers.CmdParse;
 import edu.project3.parsers.ParseHandler;
+import java.util.Map;
 
 public final class NGINX {
 
@@ -22,6 +24,7 @@ public final class NGINX {
         CmdParse.parse(args);
         System.out.println(CmdParse.getPath());
         ParseHandler.checkPath();
+        System.out.println(AbstractParser.getAdress_map().containsKey("93.180.71.3"));
     }
 
     // getters and setters

@@ -65,7 +65,8 @@ public class Zoo {
 
     //task7
     public Animal theOldestAnimal(int k) {
-        return animals.stream().sorted(Comparator.comparing(Animal::age)).limit(k).toList().getLast();
+        return animals.size() >= k ?
+            animals.stream().sorted(Comparator.comparing(Animal::age)).limit(k).toList().getLast() : null;
     }
 
     //task8

@@ -10,13 +10,16 @@ import java.nio.file.Path;
 @Slf4j
 public class URLParser extends AbstractParser{
     @Override
-    void parseResource(Path path) {
+    void parseResource(String path) {
         try {
             var url = new URL(String.valueOf(path));
             try (var reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
-                while (reader.ready()) {
-                    String request = reader.readLine();
+                System.out.println("Loading");
+                String request;
+                int count = 0;
+                while ((request = reader.readLine()) != null && count <10) {
                     parseRequest(request);
+                    count++;
                 }
             } catch (IOException e) {
                 log.error(e.getMessage());

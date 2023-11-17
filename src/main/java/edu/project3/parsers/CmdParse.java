@@ -1,41 +1,51 @@
 package edu.project3.parsers;
 
-import lombok.Getter;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import lombok.Getter;
 
 public class CmdParse {
-    @Getter private static Path path;
-    @Getter private static Date from;
-    @Getter private static Date to;
+    @Getter private static String path;
+    @Getter private static OffsetDateTime from;
+    @Getter private static OffsetDateTime to;
     @Getter private static String format;
-
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public CmdParse() {
     }
 
-    public static void parse(String[] args) {
-        System.out.println("it work");
-        System.out.println(Arrays.toString(args));
+    public void parse(String[] args) {
         for (int i = 0; i < args.length - 1; i++) {
-            System.out.println("bl");
             if (args[i].startsWith("--")) {
-                System.out.println("more bl");
                 switch (args[i]) {
                     case "--path":
-                        System.out.println("path");
-                        path = Path.of(args[++i]);
+                        path = args[++i];
                         break;
                     case "--from":
-                        from = new Date(Long.parseLong(args[++i]));
+                        LocalDateTime localDateTimeFrom = LocalDateTime.parse(args[++i]+ "T00:00:00Z", DateTimeFormatter.ISO_DATE_TIME);
+                        from = localDateTimeFrom.atOffset(ZoneOffset.UTC);
                         break;
                     case "--to":
-                        to = new Date(Long.parseLong(args[++i]));
+                        System.out.println("sukak");
+                        LocalDateTime localDateTimeTo = LocalDateTime.parse(args[++i]+ "T00:00:00Z", DateTimeFormatter.ISO_DATE_TIME);
+                        to = localDateTimeTo.atOffset(ZoneOffset.UTC);
+                        break;
                     case "--format":
                         format = args[++i];
+                        break;
                     default:
                         break;
                 }
+            }
+            if (from!=null && to==null){
+                System.out.println("time");
+                LocalDateTime now = LocalDateTime.now();
+                System.out.println(now);
+                to = now.atOffset(ZoneOffset.UTC);
+                System.out.println(to);
             }
         }
     }

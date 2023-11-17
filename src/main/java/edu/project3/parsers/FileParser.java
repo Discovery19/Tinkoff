@@ -7,8 +7,8 @@ import java.nio.file.Path;
 @Slf4j
 public class FileParser extends AbstractParser{
     @Override
-    void parseResource(Path path) {
-        File file = new File(String.valueOf(path));
+    void parseResource(String path) {
+        File file = new File(path);
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             while (reader.ready()) {
                 String request = reader.readLine();

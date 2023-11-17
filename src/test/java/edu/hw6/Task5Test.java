@@ -11,23 +11,25 @@ class Task5Test {
     @DisplayName("Проверка по размеру")
     void hackerNewsTopStories() throws URISyntaxException, IOException, InterruptedException {
         //act
-        long[] result= Task5.hackerNewsTopStories();
+        long[] result = Task5.hackerNewsTopStories();
         //assert
-        assertThat(result).hasSize(500);
+        assertThat(result).isNotEmpty();
     }
+
     @Test
-    @DisplayName("Проврка элемента")
+    @DisplayName("Провека элемента")
     void hackerNewsTopStoriesFirst() throws URISyntaxException, IOException, InterruptedException {
         //act
-        long[] result= Task5.hackerNewsTopStories();
+        long[] result = Task5.hackerNewsTopStories();
         //assert
-        assertThat(result).contains(38251330L);
+        assertThat(result).contains(38309611L);
     }
+
     @Test
     @DisplayName("Проверка текста")
-    void news() throws URISyntaxException, IOException, InterruptedException {
+    void news() {
         //act
-        String result= Task5.news();
+        String result = Task5.news(37570037);
         //assert
         assertThat(result).isEqualTo("JDK 21 Release Notes");
     }

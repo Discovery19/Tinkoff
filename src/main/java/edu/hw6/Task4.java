@@ -24,9 +24,9 @@ public class Task4 {
         return PATH;
     }
 
-    private OutputStream createFile(Path path) throws IOException {
-        Files.createFile(path);
-        return Files.newOutputStream(path);
+    private OutputStream createFile() throws IOException {
+        Files.createFile(Task4.PATH);
+        return Files.newOutputStream(Task4.PATH);
     }
 
     private CheckedOutputStream checkStream(OutputStream outputStream) {
@@ -46,7 +46,7 @@ public class Task4 {
     }
 
     public void writeToFile() {
-        try (OutputStream outputStream = createFile(PATH);
+        try (OutputStream outputStream = createFile();
              CheckedOutputStream checkedOutputStream = checkStream(outputStream);
              BufferedOutputStream bufferedOutputStream = addBuffer(checkedOutputStream);
              OutputStreamWriter outputStreamWriter = addOutputStreamWriter(bufferedOutputStream);

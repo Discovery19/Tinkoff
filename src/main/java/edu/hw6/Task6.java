@@ -5,11 +5,17 @@ import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.util.Map;
 import java.util.TreeMap;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class Task6 {
     private static final TreeMap<Integer, String[]> PORTS = new TreeMap<>();
 
-    public Task6() {
+    static {
         //CHECKSTYLE:OFF: checkstyle:magicnumber
         PORTS.put(21, new String[] {"TCP", "FTP"});
         PORTS.put(22, new String[] {"UDP", "SSH"});
@@ -20,7 +26,6 @@ public class Task6 {
         PORTS.put(138, new String[] {"UDP", "Служба датаграмм NetBIOS"});
         PORTS.put(139, new String[] {"TCP", "Служба сеансов NetBIOS"});
         PORTS.put(443, new String[] {"TCP", "HTTPS"});
-
     }
 
     public String portsStatus() {
@@ -34,14 +39,13 @@ public class Task6 {
                     sb.append(entry.getValue()[0]).append(" ").append(entry.getKey()).append("\n");
                 }
             } else {
-                try (DatagramSocket datagramSocket = new DatagramSocket(entry.getKey())) {
+                try (DatagramSocket ignored = new DatagramSocket(entry.getKey())) {
                     sb.append(entry.getValue()[0]).append(" ").append(entry.getKey()).append(" ")
                         .append(entry.getValue()[1]).append("\n");
                 } catch (IOException exception) {
                     sb.append(entry.getValue()[0]).append(" ").append(entry.getKey()).append("\n");
                 }
             }
-
         }
         return sb.toString();
     }

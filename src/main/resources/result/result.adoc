@@ -2,21 +2,21 @@
 |===
 |        Метрика        |     Значение 
 |       Файл(-ы)        | https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs
-|    Начальная дата     | 2023-08-31T00:00Z
-|       Конечная дата   |2023-11-17T21:15:28.795724400Z
-|  Количество запросов  |37
-| Средний размер ответа |140
+|    Начальная дата     | -
+|       Конечная дата   |-
+|  Количество запросов  |10
+| Средний размер ответа |133
 |===
 ==== Запрашиваемые ресурсы
 |===
 |     Ресурс      | Количество 
-|/downloads/product_1|30
-|/downloads/product_2|7
+|/downloads/product_1|8
+|/downloads/product_2|2
 |===
 ==== Коды ответа
 |===
 | Код |          Имя          | Количество 
-|404|Not Found |21
-|304|Redirection|13
-|336|Unknown|4
+|304|Redirection|6
+|200|Unknown|2
+|404|Not Found |2
 |===

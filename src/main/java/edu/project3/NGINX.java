@@ -1,32 +1,25 @@
 package edu.project3;
 
+import edu.project3.Report.Report;
+import edu.project3.Report.ReportHandler;
 import edu.project3.parsers.CmdParse;
 import edu.project3.parsers.ParseHandler;
 
 public final class NGINX {
 
-    private static NGINX INSTANCE;
-
-    private NGINX() {
-    }
-
-    public static NGINX getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new NGINX();
-        }
-
-        return INSTANCE;
+    public NGINX() {
     }
 
     public void analyze(String[] args) {
-        System.out.println("Start analyzing NGINX");
-        CmdParse cmdParse= new CmdParse();
+        CmdParse cmdParse = new CmdParse();
         cmdParse.parse(args);
-        ParseHandler parseHandler = new ParseHandler();
-        parseHandler.checkPath();
-        //
 
+        Statistics statistics = new Statistics(cmdParse);
+        ParseHandler handler = new ParseHandler(statistics);
+        handler.parse();
+
+        ReportHandler reportHandler = new ReportHandler();
+        Report report = reportHandler.handler(statistics);
+        report.report(statistics);
     }
-
-    // getters and setters
 }

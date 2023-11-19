@@ -1,57 +1,44 @@
 package edu.project3.parsers;
-
+//CHECKSTYLE:OFF: checkstyle:ImportOrder
+import lombok.extern.slf4j.Slf4j;
+import edu.project3.Statistics;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ParseHandler {
-    public void checkPath() {
-        String path = CmdParse.getPath();
-        File file = new File(path);
+    Statistics statistics;
+
+    public ParseHandler(Statistics statistics) {
+        this.statistics = statistics;
+
+    }
+
+    public void parse() {
+        AbstractParser parser;
+        File file = new File(statistics.getCmdParse().getPath());
         if (file.exists()) {
             if (file.isDirectory()) {
-                List<String> files = fileInTimes(path);
-                for (String s : files) {
-                    FileParser fileParser = new FileParser();
-                    fileParser.parseResource(s);
-                }
-            }
-            else {
-                FileParser fileParser = new FileParser();
-                fileParser.parseResource(path);
+                parser = new FilesParser(statistics);
+                parser.parseResource(statistics.getCmdParse().getPath());
+            } else {
+                parser = new FileParser(statistics);
+                parser.parseResource(statistics.getCmdParse().getPath());
             }
         } else {
             try {
-                HttpURLConnection urlConn = (HttpURLConnection) new URL(path).openConnection();
+                HttpURLConnection urlConn =
+                    (HttpURLConnection) new URL(statistics.getCmdParse().getPath()).openConnection();
                 urlConn.connect();
                 urlConn.disconnect();
-                URLParser urlParser = new URLParser();
-                urlParser.parseResource(path);
+                parser = new URLParser(statistics);
+                parser.parseResource(statistics.getCmdParse().getPath());
             } catch (IOException ignored) {
                 log.warn("Path does not exist");
             }
         }
     }
 
-    List<String> fileInTimes(String path) {
-        long from = CmdParse.getFrom().toInstant().toEpochMilli();
-        long to = CmdParse.getTo().toInstant().toEpochMilli();
-        List<String> fileList = new ArrayList<>();
-        File folder = new File(String.valueOf(path));
-        File[] files = folder.listFiles();
-
-        if (files != null) {
-            for (File file : files) {
-                if (file.lastModified() >= from && file.lastModified() <= to) {
-                    fileList.add(file.getPath());
-                }
-            }
-        }
-        return fileList;
-    }
 }

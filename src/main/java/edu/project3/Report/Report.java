@@ -1,7 +1,12 @@
-package edu.project3.Render;
+package edu.project3.Report;
+
+import edu.project3.Statistics;
 
 public interface Report {
-    void report();
+
+    void report(Statistics statistics);
+
+    //CHECKSTYLE:OFF: checkstyle:ReturnCount
     default String answerName(String key) {
         switch (key) {
             case "200 " -> {

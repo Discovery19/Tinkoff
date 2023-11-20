@@ -32,12 +32,28 @@ class Task8Test {
         assertThat(result).isTrue();
     }
     @Test
+    @DisplayName("Начинается с 0 - нечетная длина 011")
+    void startWithNullOddTest() {
+        //act
+        var result = Task8.isStringValidZeroOddOrOneEven("011");
+        //assert
+        assertThat(result).isTrue();
+    }
+    @Test
     @DisplayName("Начинается с 1 - четная длина")
     void startWithOneEven() {
         //act
         var result = Task8.isStringValidZeroOddOrOneEven("101110");
         //assert
         assertThat(result).isTrue();
+    }
+    @Test
+    @DisplayName("Начинается с 1 - четная длина 11111")
+    void startWithOneEvenTest() {
+        //act
+        var result = Task8.isStringValidZeroOddOrOneEven("11111");
+        //assert
+        assertThat(result).isFalse();
     }
     @Test
     @DisplayName("Каждый нечетный символ - 1")

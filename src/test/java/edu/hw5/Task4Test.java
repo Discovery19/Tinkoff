@@ -22,11 +22,11 @@ class Task4Test {
         assertThat(result).isFalse();
     }
     @Test
-    @DisplayName("Неподходящий пароль, несколько нужных символов, а не один")
+    @DisplayName("Подходящий пароль, несколько нужных символов")
     void passwordBadMore() {
         //act
-        var result = Task4.isStringMatchRegex("^123456$78");
+        var result = Task4.isStringMatchRegex("^1$23456$78");
         //assert
-        assertThat(result).isFalse();
+        assertThat(result).isTrue();
     }
 }

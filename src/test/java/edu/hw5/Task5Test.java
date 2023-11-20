@@ -22,12 +22,12 @@ class Task5Test {
         assertThat(result).isFalse();
     }
     @Test
-    @DisplayName("Неподходящий номер, в задании написано, что неподходящий, но в жизни вполне реальный")
+    @DisplayName("Подходящий номер")
     void carBadStrange() {
         //act
         var result = Task5.isStringMatchRegex("А123ВГ77");
         //assert
-        assertThat(result).isFalse();
+        assertThat(result).isTrue();
     }
     @Test
     @DisplayName("Неподходящий пароль")

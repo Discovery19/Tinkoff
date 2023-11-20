@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class Task3 implements Handler {
+public class Task3 {
     public Task3() {
     }
 
@@ -18,13 +18,11 @@ public class Task3 implements Handler {
         "d/M/yyyy"
     );
 
-    @Override
-    public LocalDate matcher(String string, DateTimeFormatter pattern) {
+    public LocalDate parser(String string, DateTimeFormatter pattern) {
         return LocalDate.parse(string, pattern);
     }
 
-    @Override
-    public LocalDate getDate(String string) {
+    public LocalDate parseStringDate(String string) {
         LocalDate localDate = LocalDate.now();
         return switch (string) {
             case "tomorrow" -> localDate.plusDays(1);
@@ -47,11 +45,11 @@ public class Task3 implements Handler {
     public Optional<LocalDate> parseDate(String string) {
         for (String format : defaultFormats) {
             try {
-                return Optional.ofNullable(matcher(string, DateTimeFormatter.ofPattern(format)));
+                return Optional.ofNullable(parser(string, DateTimeFormatter.ofPattern(format)));
             } catch (Exception ignored) {
             }
         }
-        LocalDate localDate = getDate(string);
+        LocalDate localDate = parseStringDate(string);
         if (localDate != null) {
             return Optional.of(localDate);
         }

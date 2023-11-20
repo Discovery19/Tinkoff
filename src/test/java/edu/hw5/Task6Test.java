@@ -15,9 +15,9 @@ class Task6Test {
     }
     @Test
     @DisplayName("Не подстрока")
-    void notSubsting() {
+    void notSubstring() {
         //act
-        var result = Task6.isStringIsSubstring("achfdbaabgabcaabg", "123");
+        var result = Task6.isStringIsSubstring("achfdbaabgabcaabg", "{,}");
         //assert
         assertThat(result).isFalse();
     }

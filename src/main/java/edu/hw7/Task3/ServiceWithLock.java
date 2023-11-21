@@ -15,38 +15,51 @@ public class ServiceWithLock implements PersonDatabase {
     @Override
     public void add(Person person) {
         lock.writeLock().lock();
-        people.add(person);
-        lock.writeLock().unlock();
+        try {
+            people.add(person);
+        } finally {
+            lock.writeLock().unlock();
+        }
+
     }
 
     @Override
     public void delete(int id) {
         lock.writeLock().lock();
-        people.removeIf(person -> person.id() == id);
-        lock.writeLock().unlock();
+        try {
+            people.removeIf(person -> person.id() == id);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     @Override
     public @Nullable Person findByName(String name) {
         lock.readLock().lock();
-        Person result = people.stream().filter(person -> person.name().equals(name)).findFirst().orElse(null);
-        lock.readLock().unlock();
-        return result;
+        try {
+            return people.stream().filter(person -> person.name().equals(name)).findFirst().orElse(null);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     @Override
     public @Nullable Person findByAddress(String address) {
         lock.readLock().lock();
-        Person result = people.stream().filter(person -> person.address().equals(address)).findFirst().orElse(null);
-        lock.readLock().unlock();
-        return result;
+        try {
+            return people.stream().filter(person -> person.address().equals(address)).findFirst().orElse(null);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     @Override
     public @Nullable Person findByPhone(String phone) {
         lock.readLock().lock();
-        Person result = people.stream().filter(person -> person.phoneNumber().equals(phone)).findFirst().orElse(null);
-        lock.readLock().unlock();
-        return result;
+        try {
+            return people.stream().filter(person -> person.phoneNumber().equals(phone)).findFirst().orElse(null);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 }

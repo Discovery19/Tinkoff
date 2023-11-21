@@ -11,6 +11,7 @@ public class MonteKarloSingleThread {
         this.totalCount = totalCount;
     }
 
+    //CHECKSTYLE:OFF: checkstyle:MagicNumber
     public double generate() {
         for (int i = 0; i < totalCount; i++) {
             double x = random.nextDouble();
@@ -25,8 +26,4 @@ public class MonteKarloSingleThread {
         return 4.0 * ((double) circleCount / totalCount);
     }
 
-    public static void main(String[] args) {
-        MonteKarloSingleThread singleThread = new MonteKarloSingleThread(1000000);
-        System.out.println(singleThread.generate());
-    }
 }

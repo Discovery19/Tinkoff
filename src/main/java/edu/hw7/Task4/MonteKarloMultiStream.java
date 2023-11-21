@@ -10,6 +10,7 @@ public class MonteKarloMultiStream {
         this.totalCount = totalCount;
     }
 
+    //CHECKSTYLE:OFF: checkstyle:MagicNumber
     public double generate() {
         AtomicInteger circleCount = new AtomicInteger(0);
 
@@ -26,11 +27,5 @@ public class MonteKarloMultiStream {
             });
 
         return 4.0 * ((double) circleCount.get() / totalCount);
-    }
-
-    public static void main(String[] args) {
-        MonteKarloMultiStream monteKarlo = new MonteKarloMultiStream(1000000);
-        double result = monteKarlo.generate();
-        System.out.println("Approximation of Pi: " + result);
     }
 }

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
 
+@Getter
 public class ServiceWithLock implements PersonDatabase {
     final List<Person> people = new ArrayList<>();
     ReadWriteLock lock = new ReentrantReadWriteLock();

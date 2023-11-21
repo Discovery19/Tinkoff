@@ -2,7 +2,9 @@ package edu.hw7;
 
 import edu.hw7.Task3.Person;
 import edu.hw7.Task3.Service;
+import edu.hw7.Task3.ServiceWithLock;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,6 +21,7 @@ class Task3Test {
     }
 
     @Test
+    @DisplayName("add")
     void testAdd() {
         // Arrange
         Person newPerson = new Person(3, "Bob Johnson", "789 Elm St", "555-9876");
@@ -31,6 +34,7 @@ class Task3Test {
     }
 
     @Test
+    @DisplayName("delete")
     void testDelete() {
         // Arrange
         int idToDelete = 1;
@@ -43,6 +47,7 @@ class Task3Test {
     }
 
     @Test
+    @DisplayName("find name")
     void testFindByName() {
         // Act
         Person foundPerson = service.findByName("John Doe");
@@ -52,6 +57,7 @@ class Task3Test {
     }
 
     @Test
+    @DisplayName("find address")
     void testFindByAddress() {
         // Act
         Person foundPerson = service.findByAddress("456 Oak St");
@@ -61,6 +67,7 @@ class Task3Test {
     }
 
     @Test
+    @DisplayName("find phone")
     void testFindByPhone() {
         // Act
         Person foundPerson = service.findByPhone("555-5678");
@@ -69,4 +76,30 @@ class Task3Test {
         assertEquals(2, foundPerson.id());
     }
 
+    @Test
+    @DisplayName("Lock")
+    void testAddLock(){
+        // Arrange
+        ServiceWithLock serviceWithLock = new ServiceWithLock();
+        Person newPerson = new Person(3, "Bob Johnson", "789 Elm St", "555-9876");
+
+        // Act
+        serviceWithLock.add(newPerson);
+
+        // Assert
+        assertTrue(serviceWithLock.getPeople().contains(newPerson));
+    }
+    @Test
+    @DisplayName("Lock")
+    void testRemoveLock(){
+        // Arrange
+        ServiceWithLock serviceWithLock = new ServiceWithLock();
+        Person newPerson = new Person(3, "Bob Johnson", "789 Elm St", "555-9876");
+
+        // Act
+        serviceWithLock.delete(3);
+
+        // Assert
+        assertTrue(serviceWithLock.getPeople().isEmpty());
+    }
 }

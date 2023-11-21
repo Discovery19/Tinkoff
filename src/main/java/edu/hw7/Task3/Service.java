@@ -2,13 +2,12 @@ package edu.hw7.Task3;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
 
-public class Service implements PersonDatabase {
+@Getter public class Service implements PersonDatabase {
     private final List<Person> people = new ArrayList<>();
-    public List<Person> getPeople(){
-        return people;
-    }
+
     @Override
     public void add(Person person) {
         synchronized (people) {

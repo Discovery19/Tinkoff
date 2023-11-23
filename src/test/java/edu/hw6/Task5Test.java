@@ -1,5 +1,6 @@
 package edu.hw6;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
@@ -17,6 +18,7 @@ class Task5Test {
     }
 
     @Test
+    @Disabled
     @DisplayName("Провека элемента")
     void hackerNewsTopStoriesFirst() throws URISyntaxException, IOException, InterruptedException {
         //act

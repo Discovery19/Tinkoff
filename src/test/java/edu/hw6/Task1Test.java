@@ -2,6 +2,7 @@ package edu.hw6;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -79,6 +80,20 @@ class Task1Test {
         var result = task1.containsValue("str");
         //assert
         assertThat(result).isTrue();
+        task1.clear();
+    }
+    @Test
+    @DisplayName("put all")
+    void putAll() {
+        //arrange
+        Task1 task1 = new Task1(Path.of("src/main/resources/hw6/task1/map"));
+        //act
+        task1.put("1", "new String");
+        task1.put("2", "str");
+        task1.putAll(Map.of("3", "new String"));
+        var result = task1.size();
+        //assert
+        assertThat(result).isEqualTo(3);
         task1.clear();
     }
 }

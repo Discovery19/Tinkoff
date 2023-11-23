@@ -71,19 +71,31 @@ public class Task1 implements Map<String, String> {
 //        }
 //    }
 
-    @Override
-    public int size() {
-        int size = 0;
+    private List<String> readFile() {
+        List<String> list = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             while (bufferedReader.ready()) {
-                bufferedReader.readLine();
-                size++;
+                list.add(bufferedReader.readLine());
             }
         } catch (IOException e) {
             log.error(e.getMessage());
-            return 0;
         }
-        return size;
+        return list;
+    }
+
+    @Override
+    public int size() {
+//        int size = 0;
+//        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+//            while (bufferedReader.ready()) {
+//                bufferedReader.readLine();
+//                size++;
+//            }
+//        } catch (IOException e) {
+//            log.error(e.getMessage());
+//            return 0;
+//        }
+        return readFile().size();
     }
 
     @Override
@@ -93,50 +105,36 @@ public class Task1 implements Map<String, String> {
 
     @Override
     public boolean containsKey(Object key) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            while (bufferedReader.ready()) {
-                String k = bufferedReader.readLine().split(":")[0];
-                if (k.equals(key)) {
-                    return true;
-                }
+        List<String> list = readFile();
+        for (String k : list) {
+            String str = k.split(":")[0];
+            if (str.equals(key)) {
+                return true;
             }
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            return false;
         }
-
         return false;
     }
 
     @Override
     public boolean containsValue(Object value) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            while (bufferedReader.ready()) {
-                String v = bufferedReader.readLine().split(":")[1];
-                if (v.equals(value)) {
-                    return true;
-                }
+        List<String> list = readFile();
+        for (String k : list) {
+            String str = k.split(":")[1];
+            if (str.equals(value)) {
+                return true;
             }
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            return false;
         }
-
         return false;
     }
 
     @Override
     public String get(Object key) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            while (bufferedReader.ready()) {
-                String[] kv = bufferedReader.readLine().split(":");
-                if (kv[0].equals(key)) {
-                    return kv[1];
-                }
+        List<String> list = readFile();
+        for (String k : list) {
+            String str = k.split(":")[0];
+            if (str.equals(key)) {
+                return k.split(":")[1];
             }
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            return null;
         }
         return null;
     }
@@ -147,14 +145,7 @@ public class Task1 implements Map<String, String> {
         if (containsKey(key)) {
             remove(key);
         }
-        List<String> list = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            while (bufferedReader.ready()) {
-                list.add(bufferedReader.readLine());
-            }
-        } catch (IOException e) {
-            return null;
-        }
+        List<String> list = readFile();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (String s : list) {
                 writer.write(s + "\n");
@@ -162,44 +153,35 @@ public class Task1 implements Map<String, String> {
             writer.write(key + ":" + value + "\n");
         } catch (IOException e) {
             log.error(e.getMessage());
-            throw new RuntimeException(e);
         }
         return null;
     }
 
     @Override
     public String remove(Object key) {
-        List<String> list = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            while (bufferedReader.ready()) {
-                String k = bufferedReader.readLine();
-                if (!k.startsWith(key.toString())) {
-                    list.add(k);
-                }
-            }
-        } catch (IOException e) {
-            return null;
-        }
+        List<String> list = readFile().stream().filter(e -> !e.startsWith(key.toString())).toList();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (String s : list) {
                 writer.write(s + "\n");
             }
         } catch (IOException e) {
             log.error(e.getMessage());
-            throw new RuntimeException(e);
         }
         return null;
     }
 
     @Override
     public void putAll(@NotNull Map<? extends String, ? extends String> m) {
+        List<String> list = readFile();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (String s : list) {
+                writer.write(s + "\n");
+            }
             for (Entry<? extends String, ? extends String> entry : m.entrySet()) {
                 writer.write(entry.getKey() + ":" + entry.getValue() + "\n");
             }
         } catch (IOException e) {
             log.error(e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 
@@ -209,7 +191,6 @@ public class Task1 implements Map<String, String> {
             Files.write(Path.of(file.getPath()), Collections.emptyList());
         } catch (IOException e) {
             log.error(e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 
@@ -224,7 +205,7 @@ public class Task1 implements Map<String, String> {
             }
         } catch (IOException e) {
             log.error(e.getMessage());
-            return null;
+            return Collections.emptySet();
         }
         return set;
     }
@@ -240,7 +221,7 @@ public class Task1 implements Map<String, String> {
             }
         } catch (IOException e) {
             log.error(e.getMessage());
-            return null;
+            return Collections.emptyList();
         }
         return collection;
     }

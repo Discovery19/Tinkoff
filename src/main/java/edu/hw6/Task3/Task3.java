@@ -1,6 +1,10 @@
 package edu.hw6.Task3;
 
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.PathMatcher;
 
 public class Task3 {
     public Task3() {
@@ -18,17 +22,29 @@ public class Task3 {
     }
 
     public AbstractFilter globMatching(String glob) {
-        return entry -> entry.getFileName().toString().endsWith(glob);
+        PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:" + glob);
+        return entry -> pathMatcher.matches(entry.getFileName());
     }
 
-    public AbstractFilter magicNumbers(String[] strings) {
+    public static AbstractFilter magicNumbers(int... values) {
         return entry -> {
-            for (String string : strings) {
-                if (!entry.getFileName().toString().contains(string)) {
-                    return false;
+            try (FileChannel channel = FileChannel.open(entry)) {
+                ByteBuffer buffer = ByteBuffer.allocate(values.length);
+                int bytesRead = channel.read(buffer);
+                int valPointer = 0;
+                while (bytesRead != -1) {
+                    buffer.flip();
+                    while (buffer.hasRemaining() && valPointer != values.length) {
+                        if (buffer.get() != (byte) values[valPointer++]) {
+                            return false;
+                        }
+                    }
+                    buffer.clear();
+                    bytesRead = channel.read(buffer);
                 }
+                return valPointer == values.length;
             }
-            return true;
+
         };
     }
 }

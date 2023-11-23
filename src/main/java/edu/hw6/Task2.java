@@ -21,9 +21,14 @@ public class Task2 {
         File newFile = new File(path.getParent().toString() + "\\" + originalName + extension);
 
         while (newFile.exists()) {
+            if (copyNumber == 0) {
+                newFile = new File(
+                    path.getParent().toString() + "\\" + originalName + " — копия" + extension);
+            } else {
+                newFile = new File(
+                    path.getParent().toString() + "\\" + originalName + " — копия (" + copyNumber + ")" + extension);
+            }
             copyNumber++;
-            newFile = new File(
-                path.getParent().toString() + "\\" + originalName + " — копия (" + copyNumber + ")" + extension);
         }
 
         try {

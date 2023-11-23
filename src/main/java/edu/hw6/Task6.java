@@ -3,6 +3,7 @@ package edu.hw6;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
+import java.net.SocketException;
 import java.util.Map;
 import java.util.TreeMap;
 import lombok.AllArgsConstructor;
@@ -28,8 +29,41 @@ public class Task6 {
         PORTS.put(443, new String[] {"TCP", "HTTPS"});
     }
 
+    private String[] checkPortProtocol(int i) {
+        String[] info = {"", ""};
+        if (PORTS.get(i) != null) {
+            info[0] = PORTS.get(i)[0];
+            info[1] = PORTS.get(i)[1];
+        }
+        return info;
+    }
+
     public String portsStatus() {
         StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 49152; i++) {
+            String[] info;
+            boolean check = false;
+            try (ServerSocket serverSocket = new ServerSocket(i)) {
+            } catch (IOException e) {
+                check = true;
+                info = checkPortProtocol(i);
+                if (info[0].equals("TCP")) {
+                    sb.append(i).append(" ").append(info[0]).append(" ").append(info[1]).append("\n");
+                }
+            }
+            if (!check) {
+                try (DatagramSocket ignored = new DatagramSocket(i)) {
+                } catch (SocketException e) {
+                    info = checkPortProtocol(i);
+                    if (info[0].equals("UDP")) {
+                        sb.append(i).append(" ").append(info[0]).append(" ").append(info[1]).append("\n");
+                    } else {
+                        sb.append(i).append("\n");
+                    }
+                }
+            }
+        }
+
         for (Map.Entry<Integer, String[]> entry : PORTS.entrySet()) {
             if (entry.getValue()[0].equals("TCP")) {
                 try (ServerSocket serverSocket = new ServerSocket(entry.getKey())) {

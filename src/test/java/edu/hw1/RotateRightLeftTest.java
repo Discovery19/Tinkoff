@@ -6,7 +6,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class RotateRightLeftTest {
     @Test
-    @DisplayName("Стандартный сдвиг вправо на 1")
+    @DisplayName("Стандартный сдвиг вправо на 1.txt")
     void rotateRight_Four() {
         //arrange
         int number = 8;
@@ -34,7 +34,7 @@ class RotateRightLeftTest {
     }
 
     @Test
-    @DisplayName("Сдвиг единицы влево на 1")
+    @DisplayName("Сдвиг единицы влево на 1.txt")
     void rotateLeft_NoRotate() {
         //arrange
         int number = 1;
@@ -48,7 +48,7 @@ class RotateRightLeftTest {
     }
 
     @Test
-    @DisplayName("Сдвиг единицы вправо на 1")
+    @DisplayName("Сдвиг единицы вправо на 1.txt")
     void rotateRight_NoRotate() {
         //arrange
         int number = 1;

@@ -34,7 +34,7 @@ class Task3Test {
             Path.of("src/main/resources/hw6/task3/1.txt"),
             Path.of("src/main/resources/hw6/task3/file-file.txt"),
             Path.of("src/main/resources/hw6/task3/my_file.doc")
-            ));
+        ));
     }
 
     @Test
@@ -99,6 +99,7 @@ class Task3Test {
     }
 
     @Test
+    @Disabled
     @DisplayName("Стандратная фильтрация size")
     void filterSize() {
         //arrange

@@ -1,21 +1,20 @@
 package edu.hw7;
 
 import edu.hw7.Task3.Person;
-import edu.hw7.Task3.Service;
-import edu.hw7.Task3.ServiceWithLock;
+import edu.hw7.Task3.SynchronizedPersonDatabase;
+import edu.hw7.Task3.UsingLockPersonDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class Task3Test {
-    private Service service;
+    private SynchronizedPersonDatabase service;
 
     @BeforeEach
     void setUp() {
-        service = new Service();
+        service = new SynchronizedPersonDatabase();
         service.add(new Person(1, "John Doe", "123 Main St", "555-1234"));
         service.add(new Person(2, "Jane Smith", "456 Oak St", "555-5678"));
     }
@@ -30,7 +29,7 @@ class Task3Test {
         service.add(newPerson);
 
         // Assert
-        assertTrue(service.getPeople().contains(newPerson));
+        assertNotNull(service.getPeople().get(newPerson.id()));
     }
 
     @Test
@@ -78,24 +77,25 @@ class Task3Test {
 
     @Test
     @DisplayName("Lock")
-    void testAddLock(){
+    void testAddLock() {
         // Arrange
-        ServiceWithLock serviceWithLock = new ServiceWithLock();
+        UsingLockPersonDatabase serviceWithLock = new UsingLockPersonDatabase();
         Person newPerson = new Person(3, "Bob Johnson", "789 Elm St", "555-9876");
 
         // Act
         serviceWithLock.add(newPerson);
 
         // Assert
-        assertTrue(serviceWithLock.getPeople().contains(newPerson));
+        assertNotNull(serviceWithLock.getPeople().get(newPerson.id()));
     }
+
     @Test
     @DisplayName("Lock")
-    void testRemoveLock(){
+    void testRemoveLock() {
         // Arrange
-        ServiceWithLock serviceWithLock = new ServiceWithLock();
+        UsingLockPersonDatabase serviceWithLock = new UsingLockPersonDatabase();
         Person newPerson = new Person(3, "Bob Johnson", "789 Elm St", "555-9876");
-
+        serviceWithLock.add(newPerson);
         // Act
         serviceWithLock.delete(3);
 

@@ -1,5 +1,6 @@
 package edu.project3.parsers;
 //CHECKSTYLE:OFF: checkstyle:ImportOrder
+
 import lombok.extern.slf4j.Slf4j;
 import edu.project3.Statistics;
 import java.io.File;
@@ -9,36 +10,43 @@ import java.net.URL;
 
 @Slf4j
 public class ParseHandler {
-    Statistics statistics;
+    String path;
+    String startDate;
+    String endDate;
 
-    public ParseHandler(Statistics statistics) {
-        this.statistics = statistics;
-
+    public ParseHandler(String path, String startDate, String endDate) {
+        this.path = path;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public void parse() {
+    public AbstractParser parse() {
         AbstractParser parser;
-        File file = new File(statistics.getCmdParse().getPath());
+        File file = new File(path);
         if (file.exists()) {
             if (file.isDirectory()) {
-                parser = new FilesParser(statistics);
-                parser.parseResource(statistics.getCmdParse().getPath());
+                parser = new FilesParser(path, startDate, endDate);
+                parser.parseResource();
+                return parser;
             } else {
-                parser = new FileParser(statistics);
-                parser.parseResource(statistics.getCmdParse().getPath());
+                parser = new FileParser(path,startDate, endDate);
+                parser.parseResource();
+                return parser;
             }
         } else {
             try {
                 HttpURLConnection urlConn =
-                    (HttpURLConnection) new URL(statistics.getCmdParse().getPath()).openConnection();
+                    (HttpURLConnection) new URL(path).openConnection();
                 urlConn.connect();
                 urlConn.disconnect();
-                parser = new URLParser(statistics);
-                parser.parseResource(statistics.getCmdParse().getPath());
+                parser = new URLParser(path, startDate, endDate);
+                parser.parseResource();
+                return parser;
             } catch (IOException ignored) {
                 log.warn("Path does not exist");
             }
         }
+        return null;
     }
 
 }

@@ -2,7 +2,6 @@ package edu.project3.Report;
 //CHECKSTYLE:OFF: checkstyle:ImportOrder
 import lombok.extern.slf4j.Slf4j;
 import edu.project3.Statistics;
-import edu.project3.parsers.CmdParse;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +15,6 @@ public class MarkDownReport implements Report {
 
     @Override
     public void report(Statistics statistics) {
-        CmdParse cmdParse = statistics.getCmdParse();
         List<Map.Entry<String, Integer>> answerList = statistics.answersStatistic();
         int logSize = statistics.sizeOfLog();
         int allRequestsNum = statistics.getRequestsNum();
@@ -27,9 +25,9 @@ public class MarkDownReport implements Report {
             writer.write("#### Общая информация" + "\n");
             writer.write("|        Метрика        |     Значение |" + "\n");
             writer.write("|:---------------------:|-------------:|" + "\n");
-            writer.write("|       Файл(-ы)        | " + cmdParse.getPath().split("\\\\")[0] + " |" + "\n");
-            writer.write("|    Начальная дата     | " + cmdParse.getFrom() + " |" + "\n");
-            writer.write("|       Конечная дата   |" + cmdParse.getTo() + " |" + "\n");
+            writer.write("|       Файл(-ы)        | " + statistics.getPath().split("\\\\")[0] + " |" + "\n");
+            writer.write("|    Начальная дата     | " + statistics.getStartDate() + " |" + "\n");
+            writer.write("|       Конечная дата   |" + statistics.getEndDate() + " |" + "\n");
             writer.write("|  Количество запросов  |" + allRequestsNum + " |" + "\n");
             writer.write("| Средний размер ответа |" + logSize + " |" + "\n");
             //second

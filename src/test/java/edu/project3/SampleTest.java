@@ -15,7 +15,7 @@ class SampleTest {
         //arrange
         String test = "--path src/main/resources/project3/test2 --format markdown";
         //act
-        Main.main(test.split(" "));
+        Analyzer.main(test.split(" "));
         //assert
         String result;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/result/result.md"));) {
@@ -34,7 +34,7 @@ class SampleTest {
             "|    Начальная дата     | - |\n" +
             "|       Конечная дата   |- |\n" +
             "|  Количество запросов  |9 |\n" +
-            "| Средний размер ответа |134 |\n" +
+            "| Средний размер ответа |126 |\n" +
             "#### Запрашиваемые ресурсы\n" +
             "|     Ресурс      | Количество |\n" +
             "|:---------------:|-----------:|\n" +
@@ -55,7 +55,7 @@ class SampleTest {
         //arrange
         String test = "--path src/main/resources/project3/test --format adoc";
         //act
-        Main.main(test.split(" "));
+        Analyzer.main(test.split(" "));
         //assert
         String result;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/result/result.adoc"));) {
@@ -74,7 +74,7 @@ class SampleTest {
             "|    Начальная дата     | -\n" +
             "|       Конечная дата   |-\n" +
             "|  Количество запросов  |27\n" +
-            "| Средний размер ответа |143\n" +
+            "| Средний размер ответа |135\n" +
             "|===\n" +
             "==== Запрашиваемые ресурсы\n" +
             "|===\n" +
@@ -97,7 +97,7 @@ class SampleTest {
         //arrange
         String test = "--path src/main/resources/project3/test --from 31-08-2023 --format markdown";
         //act
-        Main.main(test.split(" "));
+        Analyzer.main(test.split(" "));
         //assert
         String result;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/result/result.md"));) {
@@ -114,9 +114,9 @@ class SampleTest {
             "|:---------------------:|-------------:|\n" +
             "|       Файл(-ы)        | src/main/resources/project3/test |\n" +
             "|    Начальная дата     | 2023-08-31 |\n" +
-            "|       Конечная дата   |2023-11-19 |\n" +
+            "|       Конечная дата   |2023-11-30 |\n" +
             "|  Количество запросов  |27 |\n" +
-            "| Средний размер ответа |143 |\n" +
+            "| Средний размер ответа |135 |\n" +
             "#### Запрашиваемые ресурсы\n" +
             "|     Ресурс      | Количество |\n" +
             "|:---------------:|-----------:|\n" +
@@ -135,7 +135,7 @@ class SampleTest {
         //arrange
         String test = "--path https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --format markdown";
         //act
-        Main.main(test.split(" "));
+        Analyzer.main(test.split(" "));
         //assert
         String result;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/result/result.md"));) {
@@ -154,7 +154,7 @@ class SampleTest {
             "|    Начальная дата     | - |\n" +
             "|       Конечная дата   |- |\n" +
             "|  Количество запросов  |10 |\n" +
-            "| Средний размер ответа |133 |\n" +
+            "| Средний размер ответа |125 |\n" +
             "#### Запрашиваемые ресурсы\n" +
             "|     Ресурс      | Количество |\n" +
             "|:---------------:|-----------:|\n" +
@@ -174,7 +174,7 @@ class SampleTest {
         //arrange
         String test = "--path https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --format adoc";
         //act
-        Main.main(test.split(" "));
+        Analyzer.main(test.split(" "));
         //assert
         String result;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/result/result.adoc"));) {
@@ -193,7 +193,7 @@ class SampleTest {
             "|    Начальная дата     | -\n" +
             "|       Конечная дата   |-\n" +
             "|  Количество запросов  |10\n" +
-            "| Средний размер ответа |133\n" +
+            "| Средний размер ответа |125\n" +
             "|===\n" +
             "==== Запрашиваемые ресурсы\n" +
             "|===\n" +

@@ -9,12 +9,14 @@ import edu.project3.Statistics;
 
 @Slf4j
 public class FileParser extends AbstractParser {
-    FileParser(Statistics statistics) {
-        super(statistics);
+    protected FileParser(String path) {
+        super(path);
     }
-
+    protected FileParser(String path, String startDate, String endDate) {
+        super(path, startDate, endDate);
+    }
     @Override
-    void parseResource(String path) {
+    void parseResource() {
         File file = new File(path);
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             while (reader.ready()) {

@@ -10,12 +10,12 @@ import java.net.URL;
 @Slf4j
 public class URLParser extends AbstractParser {
 
-    URLParser(Statistics stats) {
-        super(stats);
+    protected URLParser(String path, String startDate, String endDate) {
+        super(path, startDate, endDate);
     }
 
     @Override
-    void parseResource(String path) {
+    void parseResource() {
         try {
             var url = new URL(String.valueOf(path));
             try (var reader = new BufferedReader(new InputStreamReader(url.openStream()))) {

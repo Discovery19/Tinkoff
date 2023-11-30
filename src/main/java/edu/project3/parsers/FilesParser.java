@@ -1,5 +1,6 @@
 package edu.project3.parsers;
 //CHECKSTYLE:OFF: checkstyle:ImportOrder
+
 import lombok.extern.slf4j.Slf4j;
 import edu.project3.Statistics;
 import java.nio.file.FileVisitResult;
@@ -18,22 +19,23 @@ import java.io.IOException;
 
 @Slf4j
 public class FilesParser extends AbstractParser {
-    public FilesParser(Statistics statistics) {
-        super(statistics);
+    protected FilesParser(String path, String startDate, String endDate) {
+        super(path, startDate, endDate);
     }
 
     @Override
-    void parseResource(String path) {
+    void parseResource() {
         List<String> files = fileInTimes(path);
+        FileParser fileParser;
         for (String s : files) {
-            FileParser fileParser = new FileParser(statistics);
-            fileParser.parseResource(s);
+            fileParser = new FileParser(s);
+            fileParser.parseResource();
         }
     }
 
-    List<String> fileInTimes(String path) {
-        LocalDate startDate = LocalDate.parse(statistics.getCmdParse().getFrom(), DateTimeFormatter.ISO_DATE);
-        LocalDate endDate = LocalDate.parse(statistics.getCmdParse().getTo(), DateTimeFormatter.ISO_DATE);
+    private List<String> fileInTimes(String path) {
+        LocalDate from = LocalDate.parse(startDate, DateTimeFormatter.ISO_DATE);
+        LocalDate to = LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
         List<String> paths = new ArrayList<>();
         try {
             Files.walkFileTree(Paths.get(path), new SimpleFileVisitor<>() {
@@ -42,7 +44,7 @@ public class FilesParser extends AbstractParser {
                     LocalDateTime fileCreationTime =
                         LocalDateTime.ofInstant(attrs.creationTime().toInstant(), ZoneOffset.UTC);
                     LocalDate fileDate = fileCreationTime.toLocalDate();
-                    if (fileDate.isBefore(endDate) && fileDate.isAfter(startDate)) {
+                    if (fileDate.isBefore(from) && fileDate.isAfter(to)) {
                         paths.add(String.valueOf(file));
                     }
 

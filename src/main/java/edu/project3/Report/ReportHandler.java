@@ -1,17 +1,17 @@
 package edu.project3.Report;
 
-import edu.project3.Statistics;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ReportHandler {
-    public ReportHandler() {
+    String format;
 
+    public ReportHandler(String format) {
+        this.format = format;
     }
 
-    public Report handler(Statistics statistics) {
+    public Report handler() {
         String unknown = "Unknown format";
-        String format = statistics.getCmdParse().getFormat();
         if (format == null) {
             log.error(unknown);
         } else {

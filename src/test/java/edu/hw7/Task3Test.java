@@ -40,6 +40,7 @@ class Task3Test {
 
         // Act
         service.delete(idToDelete);
+        service.delete(idToDelete);
 
         // Assert
         assertThat(service.findByName("John Doe")).isNull();

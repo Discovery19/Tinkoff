@@ -1,47 +1,40 @@
 package edu.hw7.Task3;
 
 import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
 
 @Getter public class SynchronizedPersonDatabase implements PersonDatabase {
-    private final HashMap<Integer, Person> people = new HashMap<>();
-    private final HashMap<String, Person> nameMap = new HashMap<>();
-    private final HashMap<String, Person> addressMap = new HashMap<>();
-    private final HashMap<String, Person> phoneMap = new HashMap<>();
+    private final Map<Integer, Person> people = new HashMap<>();
+    private final Map<String, Person> nameMap = new HashMap<>();
+    private final Map<String, Person> addressMap = new HashMap<>();
+    private final Map<String, Person> phoneMap = new HashMap<>();
 
     @Override
     public void add(Person person) {
-        synchronized (people) {
+        synchronized (this) {
             people.put(person.id(), person);
-        }
-        synchronized (nameMap) {
             nameMap.put(person.name(), person);
-        }
-        synchronized (addressMap) {
             addressMap.put(person.address(), person);
-        }
-        synchronized (phoneMap) {
             phoneMap.put(person.phoneNumber(), person);
         }
+
     }
 
     @Override
     public void delete(int id) {
-        String name = people.get(id).name();
-        String address = people.get(id).address();
-        String phone = people.get(id).phoneNumber();
-        synchronized (people) {
-            people.remove(id);
-        }
-        synchronized (nameMap) {
-            nameMap.remove(name);
-        }
-        synchronized (addressMap) {
-            addressMap.remove(address);
-        }
-        synchronized (phoneMap) {
-            phoneMap.remove(phone);
+
+        synchronized (this) {
+            if (people.get(id) != null) {
+                String name = people.get(id).name();
+                String address = people.get(id).address();
+                String phone = people.get(id).phoneNumber();
+                people.remove(id);
+                nameMap.remove(name);
+                addressMap.remove(address);
+                phoneMap.remove(phone);
+            }
         }
     }
 

@@ -12,10 +12,9 @@ public class Increment implements Runnable {
 
     @Override
     public void run() {
-        synchronized (counter) {
-            while (counter.getValue() < result) {
-                counter.increment();
-            }
+        while (counter.getValue() < result) {
+            counter.increment();
         }
+
     }
 }

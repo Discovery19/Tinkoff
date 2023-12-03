@@ -9,14 +9,11 @@ import lombok.Getter;
         for (int i = 0; i < threadCount; i++) {
             threads[i] = new Thread(new Increment(counter, result));
             threads[i].start();
-        }
-        for (Thread thread : threads) {
             try {
-                thread.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                threads[i].join();
+            } catch (InterruptedException ignored) {
+
             }
         }
     }
-
 }

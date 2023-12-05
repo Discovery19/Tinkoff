@@ -15,11 +15,9 @@ public class Render {
 
     public void render(Maze maze, List<Cell> path) {
         Cell[][] grid = maze.getGrid();
-        System.out.println(path);
-//        Cell[][] grid = maze.getGrid();
         for (Cell[] i : grid) {
             for (Cell j : i) {
-                if (path.contains(j)) {
+                if (j.type() == Cell.Type.PATH || path.contains(j)) {
                     sb.append(". ");
                 } else if (j.type() == Cell.Type.PASSAGE) {
                     sb.append("  ");

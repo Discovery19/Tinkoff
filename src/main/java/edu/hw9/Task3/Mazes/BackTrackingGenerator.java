@@ -2,7 +2,6 @@ package edu.hw9.Task3.Mazes;
 
 import edu.hw9.Task3.Cell;
 import edu.hw9.Task3.Interfaces.Generator;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;

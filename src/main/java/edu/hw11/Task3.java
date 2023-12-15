@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.implementation.bind.annotation.AllArguments;
-import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bytecode.ByteCodeAppender;
 import net.bytebuddy.jar.asm.ClassWriter;
 import net.bytebuddy.jar.asm.Label;
@@ -17,7 +15,6 @@ import net.bytebuddy.jar.asm.Type;
 @Slf4j
 public class Task3 {
     private Task3() {
-
     }
 public static void main(String[] args) throws IOException {
     saveFile("edu.hw11.FibonacciClass");

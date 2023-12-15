@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bytecode.ByteCodeAppender;
 import net.bytebuddy.jar.asm.ClassWriter;
 import net.bytebuddy.jar.asm.Label;
 import net.bytebuddy.jar.asm.MethodVisitor;
@@ -18,29 +19,9 @@ public class Task3 {
     private Task3() {
 
     }
-
-//    public static void main(String[] args)
-//        throws IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException,
-//        IOException {
-//        DynamicType.Unloaded<?> dynamicType = new ByteBuddy()
-//            .subclass(Object.class)
-//            .name("FibonacciClass")
-//            .defineMethod("fib", long.class, Visibility.PUBLIC)
-//            .withParameter(int.class, "n")
-//            .intercept(MethodDelegation.to(FibonacciInterceptor.class))
-//            .make();
-//        Class<?> clazz = dynamicType.load(ByteBuddyExample.class.getClassLoader())
-//            .getLoaded();
-//
-//
-//        Object instance = clazz.getDeclaredConstructor().newInstance();
-    // Вызываем метод
-    //long result = FibonacciClass.class
-    // (long) clazz.getDeclaredMethods()[0].invoke(instance, 6);
-//        saveFile("FibonacciClass");
-//
-//    }
-
+public static void main(String[] args) throws IOException {
+    saveFile("edu.hw11.FibonacciClass");
+}
     private static void saveFile(String className)
         throws IOException {
         byte[] byteCode = generateFibonacciClass(className);
@@ -63,72 +44,66 @@ public class Task3 {
         return cw.toByteArray();
     }
 
-    private static void generateFibonacciMethod(ClassWriter cw) {
-        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "fibonacci", "(I)J", null, null);
+    private static ByteCodeAppender.Size generateFibonacciMethod(ClassWriter cw) {
+        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "fibonacci", "(I)I", null, null);
         mv.visitCode();
 
-        Label labelEnd = new Label();
-        Label labelNonZero = new Label();
+        Label main = new Label();
+        Label resReturn = new Label();
+        Label whileStart = new Label();
 
-        // n==0
+        // n < 1
         mv.visitVarInsn(Opcodes.ILOAD, 0);
-        mv.visitJumpInsn(Opcodes.IFNE, labelNonZero);
-        mv.visitInsn(Opcodes.LCONST_0);
-        mv.visitInsn(Opcodes.LRETURN);
+        mv.visitInsn(Opcodes.ICONST_1);
+        mv.visitJumpInsn(Opcodes.IF_ICMPGE, main);
+        mv.visitInsn(Opcodes.ICONST_M1);
+        mv.visitInsn(Opcodes.IRETURN);
 
-        mv.visitLabel(labelNonZero);
+        //loop
+        mv.visitLabel(main);
+        mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mv.visitInsn(Opcodes.ICONST_1);
+        mv.visitVarInsn(Opcodes.ISTORE, 1);
+        mv.visitInsn(Opcodes.ICONST_1);
+        mv.visitVarInsn(Opcodes.ISTORE, 2);
+        mv.visitInsn(Opcodes.ICONST_1);
+        mv.visitVarInsn(Opcodes.ISTORE, 3);
+        mv.visitInsn(Opcodes.ICONST_2);
+        mv.visitVarInsn(Opcodes.ISTORE, 4);
+        mv.visitLabel(whileStart);
 
-        mv.visitInsn(Opcodes.LCONST_1); // fib(1)
-        mv.visitVarInsn(Opcodes.LSTORE, 1);
-        mv.visitInsn(Opcodes.LCONST_1); // fib(2)
-        mv.visitVarInsn(Opcodes.LSTORE, 3);
+        mv.visitFrame(
+            Opcodes.F_FULL,
+            5,
+            new Object[] {Opcodes.INTEGER, Opcodes.INTEGER, Opcodes.INTEGER, Opcodes.INTEGER, Opcodes.INTEGER},
+            0,
+            null
+        );
 
-        // Цикл
+        mv.visitVarInsn(Opcodes.ILOAD, 4);
         mv.visitVarInsn(Opcodes.ILOAD, 0);
-        Label labelLoopStart = new Label();
+        mv.visitJumpInsn(Opcodes.IF_ICMPGE, resReturn);
 
-        mv.visitLabel(labelLoopStart);
-        mv.visitVarInsn(Opcodes.LLOAD, 1);
-        mv.visitVarInsn(Opcodes.LLOAD, 3);
-        mv.visitInsn(Opcodes.LADD);
-        mv.visitVarInsn(Opcodes.LSTORE, 1);
-        mv.visitVarInsn(Opcodes.LLOAD, 1);
-        mv.visitVarInsn(Opcodes.LSTORE, 3);
+        // loop body
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitVarInsn(Opcodes.ILOAD, 2);
+        mv.visitInsn(Opcodes.IADD);
+        mv.visitVarInsn(Opcodes.ISTORE, 3);
+        mv.visitVarInsn(Opcodes.ILOAD, 2);
+        mv.visitVarInsn(Opcodes.ISTORE, 1);
+        mv.visitVarInsn(Opcodes.ILOAD, 3);
+        mv.visitVarInsn(Opcodes.ISTORE, 2);
+        mv.visitIincInsn(4, 1);
+        mv.visitJumpInsn(Opcodes.GOTO, whileStart);
 
-        mv.visitInsn(Opcodes.LCONST_1);
-        mv.visitVarInsn(Opcodes.LLOAD, 3);
-        mv.visitInsn(Opcodes.LADD);
-        mv.visitVarInsn(Opcodes.LSTORE, 3);
-        // Уменьшение var0
-        mv.visitIincInsn(0, -1);
-        // Проверка условия выхода из цикла
-        mv.visitVarInsn(Opcodes.ILOAD, 0);
-        mv.visitJumpInsn(Opcodes.IFGT, labelLoopStart);
+        // return
+        mv.visitLabel(resReturn);
+        mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mv.visitVarInsn(Opcodes.ILOAD, 3);
+        mv.visitInsn(Opcodes.IRETURN);
 
-        // Метка окончания цикла
-        mv.visitLabel(labelEnd);
-        mv.visitVarInsn(Opcodes.LLOAD, 1);
-        mv.visitInsn(Opcodes.LRETURN);
+        return new ByteCodeAppender.Size(2, 5);
 
-        // Окончание метода
-        mv.visitMaxs(3, 3);
-        mv.visitEnd();
-    }
-
-    public static class FibonacciInterceptor {
-        @RuntimeType
-        public static long fib(@AllArguments Object[] args) {
-            int n = (int) args[0];
-            return calculateFibonacci(n);
-        }
-
-        private static long calculateFibonacci(int n) {
-            if (n <= 1) {
-                return n;
-            } else {
-                return calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
-            }
-        }
     }
 }
 

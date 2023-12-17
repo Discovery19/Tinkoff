@@ -1,7 +1,6 @@
 package edu.project3.parsers;
 
 import edu.project3.LogRecord;
-import lombok.Getter;
 
 public abstract class AbstractParser {
     String path;

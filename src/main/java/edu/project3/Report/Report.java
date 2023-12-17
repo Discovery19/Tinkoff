@@ -17,8 +17,7 @@ public interface Report {
         }
         try (FileWriter writer = new FileWriter("src/main/resources/result/result." + prefix)) {
             writer.write(string);
-        }
-        catch (IOException ignored) {
+        } catch (IOException ignored) {
 
         }
 

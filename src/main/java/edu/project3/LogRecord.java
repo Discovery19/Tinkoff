@@ -11,7 +11,7 @@ public class LogRecord {
         return sb.toString();
     }
 
-    public void join(LogRecord record) {
-        sb.append(record.getRecord());
+    public void join(LogRecord logRecord) {
+        sb.append(logRecord.getRecord());
     }
 }

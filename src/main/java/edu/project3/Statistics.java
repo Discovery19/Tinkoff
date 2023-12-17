@@ -18,8 +18,9 @@ import java.util.Map;
     private final Map<String, Integer> dateMap = new HashMap<>();
     private final Map<String, Integer> resourceMap = new HashMap<>();
     private final Map<String, Integer> requestMap = new HashMap<>();
-    private final Map<String, Integer> answerMap = new HashMap<>();
+    //private final Map<String, Integer> answerMap = new HashMap<>();
     private final List<Integer> sizeList = new ArrayList<>();
+    private final Answers answers = new Answers();
 
     public Statistics(String path, String startDate, String endDate, LogRecord logRecord) {
         this.path = path;
@@ -47,7 +48,8 @@ import java.util.Map;
                     requestMap.compute(line[i], (w, prev) -> prev != null ? prev + 1 : 1);
                     resourceMap.compute(line[i + 1], (w, prev) -> prev != null ? prev + 1 : 1);
                 } else if (line[i].matches(answerRegex)) {
-                    answerMap.compute(line[i], (w, prev) -> prev != null ? prev + 1 : 1);
+                    answers.add(line[i]);
+                    //answerMap.compute(line[i], (w, prev) -> prev != null ? prev + 1 : 1);
                 }
             }
         }
@@ -73,7 +75,7 @@ import java.util.Map;
 
     //Определять наиболее часто встречающиеся коды ответа
     public List<Map.Entry<String, Integer>> answersStatistic() {
-        List<Map.Entry<String, Integer>> list = new ArrayList<>(answerMap.entrySet());
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(answers.getMap().entrySet());
         list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
         List<Map.Entry<String, Integer>> result = new ArrayList<>();
         int i = 0;

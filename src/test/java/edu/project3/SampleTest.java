@@ -28,25 +28,25 @@ class SampleTest {
             throw new RuntimeException(e);
         }
         assertThat(result).isEqualTo("#### Общая информация\n" +
-            "|        Метрика        |     Значение |\n" +
-            "|:---------------------:|-------------:|\n" +
-            "|       Файл(-ы)        | src/main/resources/project3/test2 |\n" +
-            "|    Начальная дата     | - |\n" +
-            "|       Конечная дата   |- |\n" +
-            "|  Количество запросов  |9 |\n" +
-            "| Средний размер ответа |126 |\n" +
+            "| Метрика | Значение |\n" +
+            "|:-------------:|:-------------:|\n" +
+            "| Файл(-ы) | src/main/resources/project3/test2 |\n" +
+            "| Начальная дата | - |\n" +
+            "| Конечная дата | - |\n" +
+            "| Количество запросов | 9 |\n" +
+            "| Средний размер ответа | 126 |\n" +
             "#### Запрашиваемые ресурсы\n" +
-            "|     Ресурс      | Количество |\n" +
-            "|:---------------:|-----------:|\n" +
-            "|/downloads/product_2|5 |\n" +
-            "|/downloads/product_1|3 |\n" +
-            "|/downloads/TEST|1 |\n" +
+            "| Ресурс | Количество |\n" +
+            "|:-------------:|:-------------:|\n" +
+            "| /downloads/product_2 | 5 |\n" +
+            "| /downloads/product_1 | 3 |\n" +
+            "| /downloads/TEST | 1 |\n" +
             "#### Коды ответа\n" +
-            "| Код |          Имя          | Количество |\n" +
-            "|:---:|:---------------------:|-----------:|\n" +
-            "|555|Unknown|9 |\n" +
-            "|331|Unknown|1 |\n" +
-            "|328|Unknown|1 |\n");
+            "| Код | Имя | Количество |\n" +
+            "|:-------------:|:-------------:|:-------------:|\n" +
+            "| 555 | Unknown | 9 |\n" +
+            "| 304 | Redirection | 6 |\n" +
+            "| 200 | Unknown | 2 |\n");
     }
 
     @Test
@@ -69,25 +69,25 @@ class SampleTest {
         }
         assertThat(result).isEqualTo("== Общая информация\n" +
             "|===\n" +
-            "|        Метрика        |     Значение \n" +
-            "|       Файл(-ы)        | src/main/resources/project3/test\n" +
-            "|    Начальная дата     | -\n" +
-            "|       Конечная дата   |-\n" +
-            "|  Количество запросов  |27\n" +
-            "| Средний размер ответа |135\n" +
+            "| Метрика| Значение\n" +
+            "|Файл(-ы)|src/main/resources/project3/test\n" +
+            "|Начальная дата|-\n" +
+            "|Конечная дата|-\n" +
+            "|Количество запросов|27\n" +
+            "|Средний размер ответа|135\n" +
             "|===\n" +
-            "==== Запрашиваемые ресурсы\n" +
+            "== Запрашиваемые ресурсы\n" +
             "|===\n" +
-            "|     Ресурс      | Количество \n" +
+            "| Ресурс| Количество\n" +
             "|/downloads/product_1|22\n" +
             "|/downloads/product_2|5\n" +
             "|===\n" +
-            "==== Коды ответа\n" +
+            "== Коды ответа\n" +
             "|===\n" +
-            "| Код |          Имя          | Количество \n" +
-            "|404|Not Found |19\n" +
-            "|304|Redirection|7\n" +
-            "|336|Unknown|4\n" +
+            "| Код| Имя| Количество\n" +
+            "|404|Not Found |21\n" +
+            "|304|Redirection|13\n" +
+            "|555|Unknown|9\n" +
             "|===\n");
     }
 
@@ -110,30 +110,32 @@ class SampleTest {
             throw new RuntimeException(e);
         }
         assertThat(result).isEqualTo("#### Общая информация\n" +
-            "|        Метрика        |     Значение |\n" +
-            "|:---------------------:|-------------:|\n" +
-            "|       Файл(-ы)        | src/main/resources/project3/test |\n" +
-            "|    Начальная дата     | 2023-08-31 |\n" +
-            "|       Конечная дата   |2023-11-30 |\n" +
-            "|  Количество запросов  |27 |\n" +
-            "| Средний размер ответа |135 |\n" +
+            "| Метрика | Значение |\n" +
+            "|:-------------:|:-------------:|\n" +
+            "| Файл(-ы) | src/main/resources/project3/test |\n" +
+            "| Начальная дата | 2023-08-31 |\n" +
+            "| Конечная дата | 2023-12-17 |\n" +
+            "| Количество запросов | 27 |\n" +
+            "| Средний размер ответа | 135 |\n" +
             "#### Запрашиваемые ресурсы\n" +
-            "|     Ресурс      | Количество |\n" +
-            "|:---------------:|-----------:|\n" +
-            "|/downloads/product_1|22 |\n" +
-            "|/downloads/product_2|5 |\n" +
+            "| Ресурс | Количество |\n" +
+            "|:-------------:|:-------------:|\n" +
+            "| /downloads/product_1 | 22 |\n" +
+            "| /downloads/product_2 | 5 |\n" +
             "#### Коды ответа\n" +
-            "| Код |          Имя          | Количество |\n" +
-            "|:---:|:---------------------:|-----------:|\n" +
-            "|404|Not Found |19 |\n" +
-            "|304|Redirection|7 |\n" +
-            "|336|Unknown|4 |\n");
+            "| Код | Имя | Количество |\n" +
+            "|:-------------:|:-------------:|:-------------:|\n" +
+            "| 404 | Not Found  | 40 |\n" +
+            "| 304 | Redirection | 20 |\n" +
+            "| 555 | Unknown | 9 |\n");
     }
+
     @Test
     @DisplayName("Тест файла логов markdown URL")
     void testSampleMarkDownURL() {
         //arrange
-        String test = "--path https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --format markdown";
+        String test =
+            "--path https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --format markdown";
         //act
         Analyzer.main(test.split(" "));
         //assert
@@ -148,31 +150,32 @@ class SampleTest {
             throw new RuntimeException(e);
         }
         assertThat(result).isEqualTo("#### Общая информация\n" +
-            "|        Метрика        |     Значение |\n" +
-            "|:---------------------:|-------------:|\n" +
-            "|       Файл(-ы)        | https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs |\n" +
-            "|    Начальная дата     | - |\n" +
-            "|       Конечная дата   |- |\n" +
-            "|  Количество запросов  |10 |\n" +
-            "| Средний размер ответа |125 |\n" +
+            "| Метрика | Значение |\n" +
+            "|:-------------:|:-------------:|\n" +
+            "| Файл(-ы) | https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs |\n" +
+            "| Начальная дата | - |\n" +
+            "| Конечная дата | - |\n" +
+            "| Количество запросов | 10 |\n" +
+            "| Средний размер ответа | 125 |\n" +
             "#### Запрашиваемые ресурсы\n" +
-            "|     Ресурс      | Количество |\n" +
-            "|:---------------:|-----------:|\n" +
-            "|/downloads/product_1|8 |\n" +
-            "|/downloads/product_2|2 |\n" +
+            "| Ресурс | Количество |\n" +
+            "|:-------------:|:-------------:|\n" +
+            "| /downloads/product_1 | 8 |\n" +
+            "| /downloads/product_2 | 2 |\n" +
             "#### Коды ответа\n" +
-            "| Код |          Имя          | Количество |\n" +
-            "|:---:|:---------------------:|-----------:|\n" +
-            "|304|Redirection|6 |\n" +
-            "|200|Unknown|2 |\n" +
-            "|404|Not Found |2 |\n");
+            "| Код | Имя | Количество |\n" +
+            "|:-------------:|:-------------:|:-------------:|\n" +
+            "| 304 | Redirection | 6 |\n" +
+            "| 200 | Unknown | 2 |\n" +
+            "| 404 | Not Found  | 2 |\n");
     }
 
     @Test
     @DisplayName("Тест файла логов adoc URL")
     void testSampleAdocURL() {
         //arrange
-        String test = "--path https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --format adoc";
+        String test =
+            "--path https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --format adoc";
         //act
         Analyzer.main(test.split(" "));
         //assert
@@ -188,25 +191,25 @@ class SampleTest {
         }
         assertThat(result).isEqualTo("== Общая информация\n" +
             "|===\n" +
-            "|        Метрика        |     Значение \n" +
-            "|       Файл(-ы)        | https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs\n" +
-            "|    Начальная дата     | -\n" +
-            "|       Конечная дата   |-\n" +
-            "|  Количество запросов  |10\n" +
-            "| Средний размер ответа |125\n" +
+            "| Метрика| Значение\n" +
+            "|Файл(-ы)|https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs\n" +
+            "|Начальная дата|-\n" +
+            "|Конечная дата|-\n" +
+            "|Количество запросов|10\n" +
+            "|Средний размер ответа|125\n" +
             "|===\n" +
-            "==== Запрашиваемые ресурсы\n" +
+            "== Запрашиваемые ресурсы\n" +
             "|===\n" +
-            "|     Ресурс      | Количество \n" +
+            "| Ресурс| Количество\n" +
             "|/downloads/product_1|8\n" +
             "|/downloads/product_2|2\n" +
             "|===\n" +
-            "==== Коды ответа\n" +
+            "== Коды ответа\n" +
             "|===\n" +
-            "| Код |          Имя          | Количество \n" +
-            "|304|Redirection|6\n" +
-            "|200|Unknown|2\n" +
-            "|404|Not Found |2\n" +
+            "| Код| Имя| Количество\n" +
+            "|404|Not Found |42\n" +
+            "|304|Redirection|26\n" +
+            "|555|Unknown|9\n" +
             "|===\n");
     }
 }

@@ -7,7 +7,6 @@ public abstract class AbstractParser {
     String path;
     String startDate;
     String endDate;
-    @Getter private LogRecord logRecord;
 
     protected AbstractParser(String path) {
         this.path = path;
@@ -17,13 +16,11 @@ public abstract class AbstractParser {
         this.path = path;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.logRecord = new LogRecord();
-
     }
 
-    abstract void parseResource();
+    public abstract LogRecord parseResource();
 
-    void parseRequest(String line) {
+    void parseRequest(String line, LogRecord logRecord) {
         logRecord.add(changeLine(line));
     }
 

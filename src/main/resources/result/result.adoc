@@ -1,22 +1,22 @@
 == Общая информация
 |===
-|        Метрика        |     Значение 
-|       Файл(-ы)        | https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs
-|    Начальная дата     | -
-|       Конечная дата   |-
-|  Количество запросов  |10
-| Средний размер ответа |125
+| Метрика| Значение
+|Файл(-ы)|https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs
+|Начальная дата|-
+|Конечная дата|-
+|Количество запросов|10
+|Средний размер ответа|125
 |===
-==== Запрашиваемые ресурсы
+== Запрашиваемые ресурсы
 |===
-|     Ресурс      | Количество 
+| Ресурс| Количество
 |/downloads/product_1|8
 |/downloads/product_2|2
 |===
-==== Коды ответа
+== Коды ответа
 |===
-| Код |          Имя          | Количество 
-|304|Redirection|6
-|200|Unknown|2
-|404|Not Found |2
+| Код| Имя| Количество
+|404|Not Found |42
+|304|Redirection|26
+|555|Unknown|9
 |===

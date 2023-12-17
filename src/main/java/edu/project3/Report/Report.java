@@ -1,10 +1,28 @@
 package edu.project3.Report;
 
 import edu.project3.Statistics;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public interface Report {
 
-    void report(Statistics statistics);
+    String report(Statistics statistics);
+
+    default void writeToFile(String string) {
+        String prefix;
+        if (string.startsWith("####")) {
+            prefix = "md";
+        } else {
+            prefix = "adoc";
+        }
+        try (FileWriter writer = new FileWriter("src/main/resources/result/result." + prefix)) {
+            writer.write(string);
+        }
+        catch (IOException ignored) {
+
+        }
+
+    }
 
     //CHECKSTYLE:OFF: checkstyle:ReturnCount
     default String answerName(String key) {

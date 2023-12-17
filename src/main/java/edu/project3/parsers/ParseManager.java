@@ -9,28 +9,28 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Slf4j
-public class ParseHandler {
+public class ParseManager {
     String path;
     String startDate;
     String endDate;
 
-    public ParseHandler(String path, String startDate, String endDate) {
+    public ParseManager(String path, String startDate, String endDate) {
         this.path = path;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public AbstractParser parse() {
+    public AbstractParser getParser() {
         AbstractParser parser;
         File file = new File(path);
         if (file.exists()) {
             if (file.isDirectory()) {
                 parser = new FilesParser(path, startDate, endDate);
-                parser.parseResource();
+                //parser.parseResource();
                 return parser;
             } else {
                 parser = new FileParser(path,startDate, endDate);
-                parser.parseResource();
+                //parser.parseResource();
                 return parser;
             }
         } else {
@@ -40,7 +40,7 @@ public class ParseHandler {
                 urlConn.connect();
                 urlConn.disconnect();
                 parser = new URLParser(path, startDate, endDate);
-                parser.parseResource();
+                //parser.parseResource();
                 return parser;
             } catch (IOException ignored) {
                 log.warn("Path does not exist");

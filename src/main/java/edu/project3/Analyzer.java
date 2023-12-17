@@ -4,7 +4,7 @@ import edu.project3.Report.Report;
 import edu.project3.Report.ReportHandler;
 import edu.project3.parsers.AbstractParser;
 import edu.project3.parsers.CmdArgs;
-import edu.project3.parsers.ParseHandler;
+import edu.project3.parsers.ParseManager;
 
 public final class Analyzer {
 
@@ -13,21 +13,25 @@ public final class Analyzer {
 
     //CHECKSTYLE:OFF: checkstyle:UncommentedMain
     public static void main(String[] args) {
-        Analyzer nginx = new Analyzer();
-        nginx.analyze(args);
+        //String[] args1 = "--path src/main/resources/project3/test --format markdown".split(" ");
+        Analyzer analyzer = new Analyzer();
+        analyzer.analyze(args);
     }
 
     public void analyze(String[] args) {
-        CmdArgs cmdParser = CmdArgs.parse(args);
+        CmdArgs cmdArgs = CmdArgs.parse(args);
 
-        ParseHandler handler = new ParseHandler(cmdParser.path(), cmdParser.from(), cmdParser.to());
-        AbstractParser abstractParser = handler.parse();
+        ParseManager manager = new ParseManager(cmdArgs.path(), cmdArgs.from(), cmdArgs.to());
+        AbstractParser abstractParser = manager.getParser();
+
+        LogRecord logRecord = abstractParser.parseResource();
 
         Statistics statistics =
-            new Statistics(cmdParser.path(), cmdParser.from(), cmdParser.to(), abstractParser.getLogRecord());
+            new Statistics(cmdArgs.path(), cmdArgs.from(), cmdArgs.to(), logRecord);
         statistics.makeStatistics();
-        ReportHandler reportHandler = new ReportHandler(cmdParser.format());
-        Report report = reportHandler.handler();
-        report.report(statistics);
+        ReportHandler reportHandler = new ReportHandler(cmdArgs.format());
+        Report report = reportHandler.createReport();
+        String result = report.report(statistics);
+        report.writeToFile(result);
     }
 }

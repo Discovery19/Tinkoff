@@ -1,6 +1,7 @@
 package edu.project3.parsers;
 //CHECKSTYLE:OFF: checkstyle:ImportOrder
 
+import edu.project3.LogRecord;
 import lombok.extern.slf4j.Slf4j;
 import edu.project3.Statistics;
 import java.nio.file.FileVisitResult;
@@ -24,13 +25,15 @@ public class FilesParser extends AbstractParser {
     }
 
     @Override
-    void parseResource() {
+    public LogRecord parseResource() {
+        LogRecord logRecord = new LogRecord();
         List<String> files = fileInTimes(path);
         FileParser fileParser;
         for (String s : files) {
             fileParser = new FileParser(s);
-            fileParser.parseResource();
+            logRecord.join(fileParser.parseResource());
         }
+        return logRecord;
     }
 
     private List<String> fileInTimes(String path) {

@@ -1,5 +1,6 @@
 package edu.project3.parsers;
 //CHECKSTYLE:OFF: checkstyle:ImportOrder
+import edu.project3.LogRecord;
 import lombok.extern.slf4j.Slf4j;
 import edu.project3.Statistics;
 import java.io.BufferedReader;
@@ -15,7 +16,8 @@ public class URLParser extends AbstractParser {
     }
 
     @Override
-    void parseResource() {
+    public LogRecord parseResource() {
+        LogRecord logRecord = new LogRecord();
         try {
             var url = new URL(String.valueOf(path));
             try (var reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
@@ -23,7 +25,7 @@ public class URLParser extends AbstractParser {
                 int count = 0;
                 //CHECKSTYLE:OFF: checkstyle:MagicNumber
                 while ((request = reader.readLine()) != null && count < 10) {
-                    parseRequest(request);
+                    parseRequest(request, logRecord);
                     count++;
                 }
             } catch (IOException e) {
@@ -31,6 +33,6 @@ public class URLParser extends AbstractParser {
             }
         } catch (IOException ignored) {
         }
-
+        return logRecord;
     }
 }

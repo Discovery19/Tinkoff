@@ -4,13 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ReportHandler {
-    String format;
+    private final String format;
 
     public ReportHandler(String format) {
         this.format = format;
     }
 
-    public Report handler() {
+    public Report createReport() {
         String unknown = "Unknown format";
         if (format == null) {
             log.error(unknown);

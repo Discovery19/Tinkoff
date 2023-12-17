@@ -1,6 +1,7 @@
 package edu.project3.Report;
 //CHECKSTYLE:OFF: checkstyle:ImportOrder
 
+import edu.project3.Answers;
 import edu.project3.Statistics;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,44 +15,61 @@ public class AdocReport implements Report {
     }
 
     @Override
-    public void report(Statistics statistics) {
+    public String report(Statistics statistics) {
+        StringBuilder sb = new StringBuilder();
         List<Map.Entry<String, Integer>> answerList = statistics.answersStatistic();
         int logSize = statistics.sizeOfLog();
         int allRequestsNum = statistics.getRequestsNum();
         List<Map.Entry<String, Integer>> resources = statistics.getMostPopularResources();
-        //CHECKSTYLE:OFF: checkstyle:MultipleStringLiterals
-        try (FileWriter writer = new FileWriter("src/main/resources/result/result.adoc")) {
-            //first
-            writer.write("== Общая информация" + "\n");
-            writer.write("|===" + "\n");
-            writer.write("|        Метрика        |     Значение " + "\n");
-            writer.write("|       Файл(-ы)        | " + statistics.getPath().split("\\\\")[0] + "\n");
-            writer.write("|    Начальная дата     | " + statistics.getStartDate() + "\n");
-            writer.write("|       Конечная дата   |" + statistics.getEndDate() + "\n");
-            writer.write("|  Количество запросов  |" + allRequestsNum + "\n");
-            writer.write("| Средний размер ответа |" + logSize + "\n");
-            writer.write("|===" + "\n");
-            //second
-            writer.write("==== Запрашиваемые ресурсы" + "\n");
-            writer.write("|===" + "\n");
-            writer.write("|     Ресурс      | Количество " + "\n");
-            for (Map.Entry<String, Integer> entry : resources) {
-                writer.write("|" + entry.getKey() + "|" + entry.getValue() + "\n");
-            }
-            writer.write("|===" + "\n");
 
-            writer.write("==== Коды ответа" + "\n");
-            writer.write("|===" + "\n");
-            writer.write("| Код |          Имя          | Количество " + "\n");
-            for (Map.Entry<String, Integer> entry : answerList) {
-                String name = answerName(entry.getKey());
-                writer.write("|" + entry.getKey() + "|" + name + "|" + entry.getValue() + "\n");
-            }
-            writer.write("|===" + "\n");
+        appendAdocHeader(sb, "Общая информация");
+        appendAdocTable(sb, "Метрика", "Значение");
+        appendAdocTableRow(sb, "Файл(-ы)", statistics.getPath().split("\\\\")[0]);
+        appendAdocTableRow(sb, "Начальная дата", statistics.getStartDate());
+        appendAdocTableRow(sb, "Конечная дата", statistics.getEndDate());
+        appendAdocTableRow(sb, "Количество запросов", allRequestsNum);
+        appendAdocTableRow(sb, "Средний размер ответа", logSize);
+        appendAdocTableFooter(sb);
 
-            log.info("Текст успешно записан в файл result.adoc");
-        } catch (IOException e) {
-            log.error("Ошибка при записи в файл: " + e.getMessage());
+        appendAdocHeader(sb, "Запрашиваемые ресурсы");
+        appendAdocTable(sb, "Ресурс", "Количество");
+        for (Map.Entry<String, Integer> entry : resources) {
+            appendAdocTableRow(sb, entry.getKey(), entry.getValue());
         }
+        appendAdocTableFooter(sb);
+
+        appendAdocHeader(sb, "Коды ответа");
+        appendAdocTable(sb, "Код", "Имя", "Количество");
+        for (Map.Entry<String, Integer> entry : answerList) {
+            String name = answerName(entry.getKey());
+            appendAdocTableRow(sb, entry.getKey(), name, entry.getValue());
+        }
+        appendAdocTableFooter(sb);
+        log.info(sb.toString());
+        return sb.toString();
+    }
+
+    private void appendAdocHeader(StringBuilder sb, String title) {
+        sb.append("== ").append(title).append("\n");
+    }
+
+    private void appendAdocTable(StringBuilder sb, String... headers) {
+        sb.append("|===").append("\n");
+        for (String header : headers) {
+            sb.append("| ").append(header);
+        }
+        sb.append("\n");
+    }
+
+    private void appendAdocTableRow(StringBuilder sb, Object... values) {
+        for (Object value : values) {
+            sb.append("|").append(value);
+        }
+        sb.append("\n");
+    }
+
+    private void appendAdocTableFooter(StringBuilder sb) {
+        sb.append("|===");
+        sb.append("\n");
     }
 }

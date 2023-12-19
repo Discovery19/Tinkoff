@@ -3,64 +3,47 @@ package edu.hw8.Task1;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Server {
 
-    private static final int PORT = 8080;
-    private static final int NUM_PORTS = 5;
-    private final ExecutorService threadPool = Executors.newFixedThreadPool(NUM_PORTS);
+    private final int port;
+    private final ExecutorService threadPool;
     private ServerSocket serverSocket;
-    @Getter private Socket clientSocket;
 
-    public Server() {
+    public Server(int port, int serverPool) {
+        this.port = port;
+        this.threadPool = Executors.newFixedThreadPool(serverPool);
     }
 
-    public void startServer() {
-        try {
-            serverSocket = new ServerSocket(PORT);
-            log.info("Сервер запущен");
-            List<Future<?>> futures = new ArrayList<>();
+    public void startServer() throws IOException {
+        serverSocket = new ServerSocket(port);
+        log.info("Сервер запущен");
+    }
+
+    public void connectClients(Object... args) throws IOException {
+        int i = 0;
+        for (Object o : args) {
+            i++;
+            Client client = (Client) o;
             try {
-                //CHECKSTYLE:OFF: checkstyle:MagicNumber
-                serverSocket.setSoTimeout(5000);
-                while (true) {
-                    try {
-                        clientSocket = serverSocket.accept();
-                        log.info("Клиент подключился");
-                        futures.add(threadPool.submit(new ServerService(clientSocket)));
-                    } catch (SocketTimeoutException e) {
-                        break;
-                    }
-                }
-            } catch (IOException ignored) {
+                client.connect();
+                Socket clientSocket = serverSocket.accept();
+                log.info("Клиент " + i + " подключился");
+                threadPool.execute(new ServerService(clientSocket));
+            } catch (IOException e) {
+                log.error("Ошибка подключения", e);
             }
-            for (Future<?> future : futures) {
-                future.get();
-            }
-            serverSocket.close();
-            threadPool.shutdown();
-        } catch (IOException | InterruptedException | ExecutionException e) {
-            log.error("Ошибка с сервером");
         }
-    }
+        threadPool.shutdown();
+        if (threadPool.isTerminated()) {
+            CommandLineReader.closeReader();
+            serverSocket.close();
+        }
 
-//    public void closeServerTests() {
-//        try {
-//            serverSocket.close();
-//            threadPool.shutdown();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    }
 }
 

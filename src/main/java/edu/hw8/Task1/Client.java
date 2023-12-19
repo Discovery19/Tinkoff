@@ -10,33 +10,34 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Client {
-    private Socket socket;
-    private BufferedReader in;
-    private BufferedWriter out;
-    private BufferedReader reader;
 
-    private static final String SERVER_ADDRESS = "localhost";
-    private static final int PORT = 8080;
+    private final String host;
+    private final int port;
+
+    public Client(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
 
     public void connect() {
         try {
             new Thread(this::runClient).start();
         } catch (Exception e) {
-            log.error("Error while starting clients");
+            log.error("Error while starting clients", e);
         }
     }
 
     private void runClient() {
-        try {
-            socket = new Socket(SERVER_ADDRESS, PORT);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            reader = new BufferedReader(new InputStreamReader(System.in));
+        try (
+            Socket socket = new Socket(host, port);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        ) {
             log.info("Клиент подключен к серверу. Введите сообщения (для выхода введите 'exit'):");
 
             String userInput;
             //CHECKSTYLE:OFF: checkstyle:InnerAssignment
-            while (!(userInput = reader.readLine()).equals("exit")) {
+            while (!(userInput = CommandLineReader.read()).equals("exit")) {
                 out.write(userInput + "\n");
                 out.flush();
 
@@ -45,26 +46,8 @@ public class Client {
             }
             log.info("Клиент вышел");
         } catch (IOException e) {
-            log.error(e.getMessage());
-            log.error("Error while reading");
-        } finally {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                log.error("Ошибка при закрытии сокета");
-            }
-            Thread.currentThread().interrupt();
+            log.error("Error while reading", e);
         }
     }
-//    public void closeClientTests(){
-//        try {
-//            socket.close();
-//            in.close();
-//            out.close();
-//            reader.close();
-//        } catch (IOException e) {
-//            log.error("Ошибка при закрытии сокета");
-//        }
-//    }
 }
 

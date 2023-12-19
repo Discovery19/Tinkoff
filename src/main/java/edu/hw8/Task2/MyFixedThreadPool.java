@@ -7,6 +7,10 @@ public class MyFixedThreadPool implements MyThreadPool {
     private final Thread[] threads;
     private final BlockingQueue<Runnable> taskQueue;
 
+    public static MyFixedThreadPool create(int numThreads) {
+        return new MyFixedThreadPool(numThreads);
+    }
+
     public MyFixedThreadPool(int numThreads) {
         this.threads = new Thread[numThreads];
         this.taskQueue = new LinkedBlockingQueue<>();
@@ -51,8 +55,4 @@ public class MyFixedThreadPool implements MyThreadPool {
             }
         }
     }
-
-//    public static MyFixedThreadPool create(int numThreads) {
-//        return new MyFixedThreadPool(numThreads);
-//    }
 }

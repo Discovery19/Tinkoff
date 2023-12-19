@@ -11,9 +11,9 @@ class Task2Test {
     @DisplayName("Фибоначчи с одним потоком")
     void countFibOneThread() {
         //arrange
-        Task2 task2 = new Task2();
+        Task2 task2 = new Task2(1);
         //act
-        int result = task2.calculateFibonacci(10);
+        long result = task2.calculate(10);
         //assert
         assertThat(result).isEqualTo(55);
     }
@@ -22,24 +22,23 @@ class Task2Test {
     @DisplayName("Фибоначчи с многопоточностью")
     void countFibMultiThread() {
         //arrange
-        Task2 task2 = new Task2();
-        int[] in = {9};
+        Task2 task2 = new Task2(4);
+        int in = 9;
         //act
-        var result = task2.parallelFibonacci(in);
+        var result = task2.calculate(in);
         //assert
-        assertThat(result).isEqualTo(new int[] {34});
+        assertThat(result).isEqualTo(34);
     }
 
     @Test
     @DisplayName("Фибоначчи с многопоточностью много чисел")
     void countFibMultiThreadMore() {
         //arrange
-        Task2 task2 = new Task2();
-        int[] in = {10, 15, 4, 5, 6, 7, 8, 9};
+        Task2 task2 = new Task2(4);
+        int in = 15;
         //act
-        var result = task2.parallelFibonacci(in);
-        Arrays.sort(result);
+        var result = task2.calculate(in);
         //assert
-        assertThat(result).isEqualTo(new int[] {3, 5, 8, 13, 21, 34, 55, 610});
+        assertThat(result).isEqualTo(610);
     }
 }

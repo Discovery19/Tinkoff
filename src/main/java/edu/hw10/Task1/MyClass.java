@@ -14,4 +14,8 @@ public class MyClass {
         this.intValue = intValue;
         this.stringValue = stringValue;
     }
+
+    public static MyClass create(int intValue, String stringValue) {
+        return new MyClass(intValue, stringValue);
+    }
 }

@@ -32,6 +32,20 @@ public class RandomObjectGenerator {
             return generatePOJO(clazz);
         }
     }
+    public <T> T nextObject(Class<T> clazz, String fabricMethodName) throws Exception {
+        var methods = clazz.getMethods();
+        for (var m : methods) {
+            if (m.getName().equals(fabricMethodName)) {
+                Parameter[] parameter = m.getParameters();
+                Object [] values = new Object[parameter.length];
+                for (int i = 0; i < parameter.length; i++) {
+                    values[i] = generateRandomValue(parameter[i].getType());
+                }
+                return (T) m.invoke(clazz, values);
+            }
+        }
+        throw new RuntimeException();
+    }
 
     private <T> T generateRecord(Class<T> clazz) {
         try {
@@ -56,13 +70,12 @@ public class RandomObjectGenerator {
         Object[] params = Arrays.stream(constructor.getParameterTypes())
             .map(this::generateRandomValue)
             .toArray();
+        //System.out.println(Arrays.toString(params));
         return constructor.newInstance(params);
     }
 
     private Object generateRandomValue(Class<?> type) {
         if (type == int.class || type == Integer.class) {
-            //return random.nextInt();
-            //немного не понял почему аннотации не работают так как нужно
             return random.nextInt(0, Integer.MAX_VALUE);
         } else if (type == String.class) {
             return UUID.randomUUID().toString();

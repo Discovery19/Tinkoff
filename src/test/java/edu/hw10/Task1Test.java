@@ -19,6 +19,17 @@ class Task1Test {
         assertNotNull(myClass.getStringValue());
         assertTrue(myClass.getIntValue() >= 0);
     }
+    @Test
+    void testGeneratePOJOFabric() throws Exception {
+        //arrange
+        RandomObjectGenerator rog = new RandomObjectGenerator();
+        //act
+        MyClass myClass = rog.nextObject(MyClass.class, "create");
+        //assert
+        assertNotNull(myClass);
+        assertNotNull(myClass.getStringValue());
+        assertTrue(myClass.getIntValue() >= 0);
+    }
 
     @Test
     void testGenerateRecord() throws Exception {

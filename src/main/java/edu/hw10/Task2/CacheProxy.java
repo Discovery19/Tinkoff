@@ -43,19 +43,22 @@ public class CacheProxy implements InvocationHandler {
         if (method.isAnnotationPresent(Cache.class)) {
             Cache cacheAnnotation = method.getAnnotation(Cache.class);
             boolean persist = cacheAnnotation.persist();
-            int arg = (int) args[0];
 
-            String cacheKey = method.getName() + "_" + arg;
 
-            if (cache.containsKey(cacheKey)) {
-                return cache.get(cacheKey);
+            StringBuilder cacheKey = new StringBuilder(method.getName());
+            for (Object o : args) {
+                int arg = (int) o;
+                cacheKey.append("_").append(arg);
+            }
+            if (cache.containsKey(cacheKey.toString())) {
+                return cache.get(cacheKey.toString());
             }
 
             long result = (long) method.invoke(target, args);
-            cache.put(cacheKey, result);
+            cache.put(cacheKey.toString(), result);
 
             if (persist) {
-                saveToDisk(cacheKey, result);
+                saveToDisk(cacheKey.toString(), result);
             }
 
             return result;
@@ -68,7 +71,7 @@ public class CacheProxy implements InvocationHandler {
         String fileName = cacheDir + "/" + cacheKey + ".cache";
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(result);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 }
